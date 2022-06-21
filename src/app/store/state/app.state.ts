@@ -1,18 +1,22 @@
+import { FilmFullResponse } from 'src/app/models/filmFullResponse.model';
+import { FilmShortResponse } from 'src/app/models/filmShortResponse.model';
+
 export interface ICategory {
   id: number;
   name: string;
 }
 
 export interface IMovie {
-  // film: ,
-  clientAnswer: string,
-  tipNumber: number,
-
+  name: string;
+  slogan: string;
+  year: number;
+  answer: string;
+  tipNumber: number;
 }
 
 export interface IAppState {
   categories: ICategoriesState;
-  movies: IMoviesState;
+  game: IGameState;
 }
 
 export interface ICategoriesState {
@@ -20,8 +24,12 @@ export interface ICategoriesState {
   selectedCategory: ICategory | null;
 }
 
-export interface IMoviesState {
-  moviesInGame: IMovie[];
+export interface IGameState {
+  allMoviesInGame: IMovie[];
+  nonAnsweredMoviesInGame: IMovie[];
+  status: string;
+  mode: string;
+  currentMovie: IMovie;
 }
 
 export const initialCategoriesSate: ICategoriesState = {
@@ -38,13 +46,23 @@ export const initialCategoriesSate: ICategoriesState = {
   selectedCategory: null,
 };
 
-export const initialMoviesState: IMoviesState = {
-  moviesInGame: []
-}
+export const initialGameState: IGameState = {
+  allMoviesInGame: [],
+  nonAnsweredMoviesInGame: [],
+  status: 'Not Started',
+  mode: '',
+  currentMovie: {
+    name: '',
+    slogan: '',
+    year: 2000,
+    answer: '',
+    tipNumber: 0,
+  },
+};
 
 export const initialAppState = {
   categories: initialCategoriesSate,
-  movies: initialMoviesState,
+  game: initialGameState,
 };
 
 export function getInitialAppState() {
