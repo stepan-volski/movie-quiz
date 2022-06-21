@@ -1,6 +1,31 @@
-<div *ngIf="categories" class="category__container">
+<!-- <div *ngIf="categories" class="category__container">
   <app-category
     *ngFor="let category of categories"
     [category]="category"
   ></app-category>
+</div> -->
+
+<div class="category__container">
+
+  <mat-card class="example-card" data-category-id="1">
+    <mat-card-header class="centered-content">
+      <mat-card-title>Slogan Quiz</mat-card-title>
+    </mat-card-header>
+    <img mat-card-image src="https://is2-ssl.mzstatic.com/image/thumb/Purple3/v4/0e/b1/f9/0eb1f920-7f81-bf8c-377d-4e0bf803eb78/source/512x512bb.jpg" alt="Photo">
+    <mat-card-actions class="centered-content">
+      <button mat-raised-button color="primary">PLAY!</button>
+    </mat-card-actions>
+  </mat-card>
+
+  <mat-card class="example-card" data-category-id="2">
+    <mat-card-header class="centered-content">
+      <mat-card-title>Image Quiz</mat-card-title>
+    </mat-card-header>
+    <img mat-card-image src="https://is5-ssl.mzstatic.com/image/thumb/Purple118/v4/8c/ab/fd/8cabfd25-2c9d-4fc7-130e-5853943c90b1/source/512x512bb.jpg" alt="Photo">
+    <mat-card-actions class="centered-content">
+      <button mat-raised-button color="primary">PLAY!</button>
+    </mat-card-actions>
+  </mat-card>
+
 </div>
+
