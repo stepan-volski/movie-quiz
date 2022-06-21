@@ -8,10 +8,14 @@ import { StoreModule } from '@ngrx/store';
 import { CategoriesComponent } from './components/categories/categories.component';
 import { CategoryComponent } from './components/category/category.component';
 import { appReducers } from './store/reducers/app.reducer';
+import { AppRoutingModule } from './app-routing.module';
+import { HomeComponent } from './components/home/home.component';
+import { QuizComponent } from './components/quiz/quiz.component';
+import { ResultsComponent } from './components/results/results.component';
 
 @NgModule({
-  declarations: [AppComponent, CategoriesComponent, CategoryComponent],
-  imports: [BrowserModule, StoreModule.forRoot(appReducers), HttpClientModule],
+  declarations: [AppComponent, CategoriesComponent, CategoryComponent, HomeComponent, QuizComponent, ResultsComponent],
+  imports: [BrowserModule, StoreModule.forRoot(appReducers), HttpClientModule, AppRoutingModule],
   providers: [{
     provide: HTTP_INTERCEPTORS,
     useClass: AddHeaderInterceptor,
