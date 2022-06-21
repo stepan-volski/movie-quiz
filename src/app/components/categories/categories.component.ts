@@ -1,6 +1,10 @@
 import { Component, OnInit } from '@angular/core';
+import { Router } from '@angular/router';
+import { Store } from '@ngrx/store';
 import { RequestsService } from 'src/app/requests.service';
-import { ICategory } from 'src/app/store/state/app.state';
+import { selectCategory } from 'src/app/store/actions/categories.actions';
+import { gameInit } from 'src/app/store/actions/game.actions';
+import { IAppState, ICategory } from 'src/app/store/state/app.state';
 
 @Component({
   selector: 'app-categories',
@@ -11,15 +15,21 @@ export class CategoriesComponent implements OnInit {
   categories: ICategory[] = [
     {
       id: 0,
-      name: 'Category 1',
-    },
-    {
-      id: 1,
-      name: 'Category 2',
+      name: 'Top 250 movies',
     },
   ];
 
-  constructor() {}
+  constructor(private _store: Store<IAppState>, private _router: Router) {}
 
   ngOnInit(): void {}
+
+  onSelectCategory(id: number) {
+    this._store.dispatch(
+      selectCategory({ selectedCategory: this.categories[id] })
+    );
+    this._store.dispatch(gameInit());
+    this._router.navigate(['/quiz']);
+
+    console.log(id);
+  }
 }

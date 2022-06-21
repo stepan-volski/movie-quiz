@@ -14,15 +14,33 @@ import { ResultsComponent } from './components/results/results.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { SharedModule } from './shared/shared.module';
 import { MatCardModule } from '@angular/material/card';
+import { EffectsModule } from '@ngrx/effects';
+import { GameEffects } from './store/effects/game.effect';
 
 @NgModule({
-  declarations: [AppComponent, CategoriesComponent, CategoryComponent, QuizComponent, ResultsComponent],
-  imports: [BrowserModule, StoreModule.forRoot(appReducers), HttpClientModule, AppRoutingModule, BrowserAnimationsModule, SharedModule],
-  providers: [{
-    provide: HTTP_INTERCEPTORS,
-    useClass: AddHeaderInterceptor,
-    multi: true,
-  }],
+  declarations: [
+    AppComponent,
+    CategoriesComponent,
+    CategoryComponent,
+    QuizComponent,
+    ResultsComponent,
+  ],
+  imports: [
+    BrowserModule,
+    StoreModule.forRoot(appReducers),
+    HttpClientModule,
+    AppRoutingModule,
+    BrowserAnimationsModule,
+    SharedModule,
+    EffectsModule.forRoot([GameEffects]),
+  ],
+  providers: [
+    {
+      provide: HTTP_INTERCEPTORS,
+      useClass: AddHeaderInterceptor,
+      multi: true,
+    },
+  ],
   bootstrap: [AppComponent],
 })
 export class AppModule {}
