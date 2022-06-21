@@ -1,2 +1,9 @@
 <p>quiz works!</p>
+<div class="movies__container" *ngIf="moviesInGame$ | async as movies">
+  <div *ngFor="let movie of movies">
+    <p>{{ movie.id }}</p>
+    <p>{{ movie.name }}</p>
+  </div>
+</div>
+
 <button (click)="goToResults()">go to results</button>

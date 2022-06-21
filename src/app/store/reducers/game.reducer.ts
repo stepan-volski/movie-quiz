@@ -33,6 +33,8 @@ export const gameReducer = createReducer(
   })),
   on(updateMovies, (state, { movies }) => ({
     ...state,
-    allMoviesInGame: movies,
+    allMoviesInGame: [...movies]
+      .sort((a, b) => 0.5 - Math.random())
+      .slice(0, 20),
   }))
 );
