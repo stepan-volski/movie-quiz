@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { RequestsService } from 'src/app/requests.service';
 import { ICategory } from 'src/app/store/state/app.state';
 
 @Component({

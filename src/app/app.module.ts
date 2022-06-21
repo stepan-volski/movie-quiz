@@ -9,13 +9,15 @@ import { CategoriesComponent } from './components/categories/categories.componen
 import { CategoryComponent } from './components/category/category.component';
 import { appReducers } from './store/reducers/app.reducer';
 import { AppRoutingModule } from './app-routing.module';
-import { HomeComponent } from './components/home/home.component';
 import { QuizComponent } from './components/quiz/quiz.component';
 import { ResultsComponent } from './components/results/results.component';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { SharedModule } from './shared/shared.module';
+import { MatCardModule } from '@angular/material/card';
 
 @NgModule({
-  declarations: [AppComponent, CategoriesComponent, CategoryComponent, HomeComponent, QuizComponent, ResultsComponent],
-  imports: [BrowserModule, StoreModule.forRoot(appReducers), HttpClientModule, AppRoutingModule],
+  declarations: [AppComponent, CategoriesComponent, CategoryComponent, QuizComponent, ResultsComponent],
+  imports: [BrowserModule, StoreModule.forRoot(appReducers), HttpClientModule, AppRoutingModule, BrowserAnimationsModule, SharedModule],
   providers: [{
     provide: HTTP_INTERCEPTORS,
     useClass: AddHeaderInterceptor,
