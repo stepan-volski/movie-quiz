@@ -87,4 +87,10 @@ export class RequestsService {
 
     return this.http.get<TopFilmsResponse>(url);
   }
+
+  async getTopFilmIds(){
+    let array = await this.getTopFilms().toPromise() as FilmShortResponse[];
+    return array.map(el => el.filmId)
+  }
+
 }
