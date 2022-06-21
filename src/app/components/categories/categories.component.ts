@@ -10,12 +10,8 @@ export class CategoriesComponent implements OnInit {
   categories: ICategory[] = [
     {
       id: 0,
-      name: 'Category 1',
-    },
-    {
-      id: 1,
-      name: 'Category 2',
-    },
+      name: 'Top 250 movies',
+    }
   ];
 
   constructor() {}

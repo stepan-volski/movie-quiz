@@ -1,4 +1,5 @@
 import { createAction, props } from '@ngrx/store';
+import { IMovie } from '../state/app.state';
 
 export const gameInit = createAction('[Game] Game Init');
 
@@ -16,4 +17,9 @@ export const skipQuestion = createAction('[Game] Skip Question');
 export const answerQuestion = createAction(
   '[Game] Answer Question',
   props<{ answer: string }>()
+);
+
+export const updateMovies = createAction(
+  '[Game] Update Movies',
+  props<{ movies: IMovie[] }>()
 );

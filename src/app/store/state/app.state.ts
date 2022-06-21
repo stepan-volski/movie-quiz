@@ -7,6 +7,7 @@ export interface ICategory {
 }
 
 export interface IMovie {
+  id: number,
   name: string;
   slogan: string;
   year: number;
@@ -52,6 +53,7 @@ export const initialGameState: IGameState = {
   status: 'Not Started',
   mode: '',
   currentMovie: {
+    id: -1,
     name: '',
     slogan: '',
     year: 2000,

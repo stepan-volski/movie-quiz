@@ -12,15 +12,32 @@ import { AppRoutingModule } from './app-routing.module';
 import { HomeComponent } from './components/home/home.component';
 import { QuizComponent } from './components/quiz/quiz.component';
 import { ResultsComponent } from './components/results/results.component';
+import { EffectsModule } from '@ngrx/effects';
+import { GameEffects } from './store/effects/game.effect';
 
 @NgModule({
-  declarations: [AppComponent, CategoriesComponent, CategoryComponent, HomeComponent, QuizComponent, ResultsComponent],
-  imports: [BrowserModule, StoreModule.forRoot(appReducers), HttpClientModule, AppRoutingModule],
-  providers: [{
-    provide: HTTP_INTERCEPTORS,
-    useClass: AddHeaderInterceptor,
-    multi: true,
-  }],
+  declarations: [
+    AppComponent,
+    CategoriesComponent,
+    CategoryComponent,
+    HomeComponent,
+    QuizComponent,
+    ResultsComponent,
+  ],
+  imports: [
+    BrowserModule,
+    StoreModule.forRoot(appReducers),
+    HttpClientModule,
+    AppRoutingModule,
+    EffectsModule.forRoot([GameEffects]),
+  ],
+  providers: [
+    {
+      provide: HTTP_INTERCEPTORS,
+      useClass: AddHeaderInterceptor,
+      multi: true,
+    },
+  ],
   bootstrap: [AppComponent],
 })
 export class AppModule {}

@@ -1,3 +1,4 @@
+import { state } from '@angular/animations';
 import { createReducer, on } from '@ngrx/store';
 import {
   answerQuestion,
@@ -6,6 +7,7 @@ import {
   gameModeChanged,
   gameStarted,
   skipQuestion,
+  updateMovies,
 } from '../actions/game.actions';
 import { getInitialAppState } from '../state/app.state';
 
@@ -28,5 +30,9 @@ export const gameReducer = createReducer(
   on(answerQuestion, (state, { answer }) => ({
     ...state,
     currentMovie: { ...state.currentMovie, answer: answer },
+  })),
+  on(updateMovies, (state, { movies }) => ({
+    ...state,
+    allMoviesInGame: movies,
   }))
 );

@@ -3,7 +3,17 @@ import { HttpClient, HttpParams } from '@angular/common/http';
 import { TopFilmsResponse } from './models/topFilmsResponse.model';
 import { FilmFullResponse } from './models/filmFullResponse.model';
 import { FilmShortResponse } from './models/filmShortResponse.model';
-import { EMPTY, expand, Observable, reduce } from 'rxjs';
+import {
+  EMPTY,
+  expand,
+  filter,
+  map,
+  Observable,
+  reduce,
+  switchMap,
+  takeWhile,
+} from 'rxjs';
+import { IMovie } from './store/state/app.state';
 
 @Injectable({
   providedIn: 'root',
@@ -34,6 +44,25 @@ export class RequestsService {
     return this.http.get<FilmFullResponse>(this.baseUrl + apiUrl);
   }
 
+  getTopMovies(): Observable<IMovie[]> {
+    return this.getTopFilms().pipe(
+      // takeWhile((movies, i) => i < 20),
+      map((films: FilmShortResponse[]) => {
+        const movies: IMovie[] = films.map((film) => {
+          return {
+            name: film.nameRu,
+            slogan: '',
+            year: 2000,
+            answer: '',
+            tipNumber: 0,
+            id: film.filmId,
+          };
+        });
+        return movies;
+      })
+    );
+  }
+
   getTopFilms(): Observable<FilmShortResponse[]> {
     let pageNum = 1;
     return this.getTopFilmsCollection(pageNum).pipe(
@@ -58,5 +87,4 @@ export class RequestsService {
 
     return this.http.get<TopFilmsResponse>(url);
   }
-
 }
