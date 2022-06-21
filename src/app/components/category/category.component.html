@@ -1,0 +1,6 @@
+<div (click)="onCategorySelect()" class="category" style="border: 1px solid red">
+  <p>Id - {{ category.id }}</p>
+  <p>Name - {{ category.name }}</p>
+
+  <p *ngIf = "(selectedCategory$ | async) as selectedCategory">Selected Category - {{ selectedCategory.id }}</p>
+</div>
