@@ -48,7 +48,7 @@ export class GameEffects {
     )
   );
 
-  skipQuestion$ = createEffect(
+  nextQuestion$ = createEffect(
     () =>
       this._actions$.pipe(
         ofType(skipQuestion),
@@ -64,6 +64,15 @@ export class GameEffects {
               )
             : this._store.dispatch(gameFinished());
         })
+      ),
+    { dispatch: false }
+  );
+
+  submitAnswer$ = createEffect(
+    () =>
+      this._actions$.pipe(
+        ofType(submitAnswer),
+        tap(() => setTimeout(() => this._store.dispatch(skipQuestion()), 2000))
       ),
     { dispatch: false }
   );

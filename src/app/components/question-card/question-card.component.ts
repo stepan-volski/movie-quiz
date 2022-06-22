@@ -1,4 +1,12 @@
-import { Component, ElementRef, Input, OnInit, ViewChild } from '@angular/core';
+import {
+  Component,
+  ElementRef,
+  Input,
+  OnChanges,
+  OnInit,
+  SimpleChanges,
+  ViewChild,
+} from '@angular/core';
 import { Store } from '@ngrx/store';
 import { submitAnswer } from 'src/app/store/actions/game.actions';
 import { getCurrentMovieStatus } from 'src/app/store/selectors/game.selector';
@@ -15,6 +23,7 @@ export class QuestionCardComponent implements OnInit {
   currentMovieAnswerStatus$ = this._store.select(getCurrentMovieStatus);
 
   constructor(private _store: Store<IAppState>) {}
+
   panelOpenState = false;
   isShowAnswer = false;
 

@@ -2,6 +2,7 @@ import { state } from '@angular/animations';
 import { createReducer, on } from '@ngrx/store';
 import { GameStatus } from 'src/app/models/game-status';
 import { QuestionStatus } from 'src/app/models/question-status';
+import { CARDS_COUNT } from 'src/app/shared/constants';
 import {
   answerQuestion,
   gameFinished,
@@ -34,6 +35,8 @@ export const gameReducer = createReducer(
   // })),
   on(submitAnswer, (state, { answer }) => ({
     ...state,
+    score:
+      state.score + state.allMoviesInGame[state.currentMovieIndex].currentScore,
     allMoviesInGame: [...state.allMoviesInGame].reduce(
       (acc: IMovie[], movie, i) => {
         let updatedMovie;
@@ -53,12 +56,12 @@ export const gameReducer = createReducer(
     ...state,
     allMoviesInGame: [...movies]
       .sort((a, b) => 0.5 - Math.random())
-      .slice(0, 5),
+      .slice(0, CARDS_COUNT),
   })),
   on(updateCurrentMovieIndex, (state, { movieIndex }) => ({
     ...state,
     currentMovieIndex: movieIndex,
-  })),
+  }))
   // on(getNextCurrentMovieIndex, (state) => ({
   //   ...state,
   //   currentMovieIndex: state.allMoviesInGame.filter()state.currentMovieIndex + 1,
