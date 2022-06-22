@@ -1,35 +1,97 @@
-<mat-card class="question-card">
+mat-expansion-panel<mat-card class="question-card" *ngIf="question">
   <h1>Question 1:</h1>
 
-  <h2>{{question.slogan}}</h2>
+  <h2>{{ question.slogan }}</h2>
 
   <mat-form-field class="example-form-field" appearance="fill">
-    <input matInput type="text" value="Enter your answer">
+    <input matInput type="text" value="Enter your answer" />
   </mat-form-field>
 
-  <button mat-raised-button color="primary" (click)="onAnswerSubmit()">Submit</button>
-  <p *ngIf="isShowAnswer">Correct Answer: {{question.name}}</p>
-
+  <button mat-raised-button color="primary" (click)="onAnswerSubmit()">
+    Submit
+  </button>
+  <p *ngIf="isShowAnswer">Correct Answer: {{ question.name }}</p>
 </mat-card>
-
-<mat-card class="question-card">
+<tr></tr>
+<mat-card class="question-card" *ngIf="question">
   <h1>Hints:</h1>
-  <mat-accordion *ngFor="let hint of hints">
+  <!-- <mat-accordion>
     <mat-expansion-panel
       (opened)="panelOpenState = true"
       (closed)="panelOpenState = false">
       <mat-expansion-panel-header>
         <mat-panel-title>
-          {{ hint.name }}
+          Hint by actors
         </mat-panel-title>
         <mat-panel-description>
-          This hint will cost you {{ hint.penalty }} points
+          This hint will cost you 1 point
         </mat-panel-description>
       </mat-expansion-panel-header>
-      <p>{{ hint.body }}</p>
+      <p>{{ question.actors }}</p>
+    </mat-expansion-panel>
+  </mat-accordion> -->
+
+  <mat-accordion>
+    <mat-expansion-panel
+      (opened)="panelOpenState = true"
+      (closed)="panelOpenState = false"
+    >
+      <mat-expansion-panel-header>
+        <mat-panel-title> Hint by genres </mat-panel-title>
+        <mat-panel-description>
+          This hint will cost you 1 point
+        </mat-panel-description>
+      </mat-expansion-panel-header>
+      <p>{{ getGenres() }}</p>
+    </mat-expansion-panel>
+  </mat-accordion>
+
+  <mat-accordion>
+    <mat-expansion-panel
+      (opened)="panelOpenState = true"
+      (closed)="panelOpenState = false"
+    >
+      <mat-expansion-panel-header>
+        <mat-panel-title> Hint by year </mat-panel-title>
+        <mat-panel-description>
+          This hint will cost you 1 point
+        </mat-panel-description>
+      </mat-expansion-panel-header>
+      <p>{{ question.year }}</p>
+    </mat-expansion-panel>
+  </mat-accordion>
+
+  <mat-accordion>
+    <mat-expansion-panel
+      (opened)="panelOpenState = true"
+      (closed)="panelOpenState = false"
+    >
+      <mat-expansion-panel-header>
+        <mat-panel-title> Hint by poster </mat-panel-title>
+        <mat-panel-description>
+          This hint will cost you 1 point
+        </mat-panel-description>
+      </mat-expansion-panel-header>
+      <img class="poster" src="{{ question.posterUrl }}" alt="poster" />
     </mat-expansion-panel>
   </mat-accordion>
 </mat-card>
+
+<!-- <mat-accordion *ngFor="let hint of hints">
+  <mat-expansion-panel
+    (opened)="panelOpenState = true"
+    (closed)="panelOpenState = false">
+    <mat-expansion-panel-header>
+      <mat-panel-title>
+        {{ hint.name }}
+      </mat-panel-title>
+      <mat-panel-description>
+        This hint will cost you {{ hint.penalty }} points
+      </mat-panel-description>
+    </mat-expansion-panel-header>
+    <p>{{ hint.body }}</p>
+  </mat-expansion-panel>
+</mat-accordion> -->
 
 <!-- <div class="card" *ngIf="question">
   <div class="tip1">{{ question.slogan }}</div>

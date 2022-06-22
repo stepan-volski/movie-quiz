@@ -14,27 +14,23 @@ export class QuestionCardComponent implements OnInit {
   panelOpenState = false;
   isShowAnswer = false;
 
-  hints = [
-    { name: 'Hint by year', body: this.question?.year, penalty: 2 },
-    { name: 'Hint by actor', body: 'starring Keanu Reeves', penalty: 3 },
-    { name: 'Hint by awards', body: 'won an oscar in 1999', penalty: 4 },
-    { name: 'Hint by image', body: 'see screenshot', penalty: 5 },
-  ];
+  // hints!: { name: string; body: {}; penalty: number }[];
 
   ngOnInit(): void {
-    this.question = {
-      id: 1,
-      name: 'matrix',
-      slogan: 'There is no spoon',
-      year: 2000,
-      answer: 'matrix',
-      tipNumber: 1,
-      genres: [{'genre': 'action'}],
-      posterUrl: 'www/poster',
-    }
+    // this.hints = [
+    //   { name: 'Hint by year', body: this.question.year, penalty: 2 },
+    //   { name: 'Hint by genres', body: this.question.genres, penalty: 3 },
+    //   // { name: 'Hint by awards', body: this, penalty: 4 },
+    //   { name: 'Hint by image', body: this.question.posterUrl, penalty: 5 },
+    // ];
   }
 
   onAnswerSubmit() {
     this.isShowAnswer = !this.isShowAnswer;
+  }
+
+  getGenres(): string {
+    const genres = this.question.genres;
+    return genres.map((genre) => genre.genre).join(', ');
   }
 }
