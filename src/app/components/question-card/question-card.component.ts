@@ -12,6 +12,7 @@ export class QuestionCardComponent implements OnInit {
 
   constructor() {}
   panelOpenState = false;
+  isShowAnswer = false;
 
   hints = [
     { name: 'Hint by year', body: this.question?.year, penalty: 2 },
@@ -20,7 +21,20 @@ export class QuestionCardComponent implements OnInit {
     { name: 'Hint by image', body: 'see screenshot', penalty: 5 },
   ];
 
-  ngOnInit(): void {}
+  ngOnInit(): void {
+    this.question = {
+      id: 1,
+      name: 'matrix',
+      slogan: 'There is no spoon',
+      year: 2000,
+      answer: 'matrix',
+      tipNumber: 1,
+      genres: [{'genre': 'action'}],
+      posterUrl: 'www/poster',
+    }
+  }
 
-  onAnswerSubmit() {}
+  onAnswerSubmit() {
+    this.isShowAnswer = !this.isShowAnswer;
+  }
 }
