@@ -56,10 +56,12 @@ export class RequestsService {
           return {
             name: film.nameRu,
             slogan: '',
-            year: 2000,
+            year: -1,
             answer: '',
             tipNumber: 0,
             id: film.filmId,
+            genres: [],
+            posterUrl: '',
           };
         });
         return movies;

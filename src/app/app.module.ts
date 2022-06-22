@@ -15,6 +15,7 @@ import { SharedModule } from './shared/shared.module';
 import { MatCardModule } from '@angular/material/card';
 import { EffectsModule } from '@ngrx/effects';
 import { GameEffects } from './store/effects/game.effect';
+import { QuestionCardComponent } from './components/question-card/question-card.component';
 import { PreloaderComponent } from './components/preloader/preloader.component';
 
 @NgModule({
@@ -23,6 +24,7 @@ import { PreloaderComponent } from './components/preloader/preloader.component';
     CategoriesComponent,
     QuizComponent,
     ResultsComponent,
+    QuestionCardComponent,
     PreloaderComponent,
   ],
   imports: [

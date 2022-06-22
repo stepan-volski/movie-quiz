@@ -14,6 +14,8 @@ export interface IMovie {
   year: number;
   answer: string;
   tipNumber: number;
+  genres: {'genre': string}[];
+  posterUrl: string;
 }
 
 export interface IAppState {
@@ -57,9 +59,11 @@ export const initialGameState: IGameState = {
     id: -1,
     name: '',
     slogan: '',
-    year: 2000,
+    year: -1,
     answer: '',
     tipNumber: 0,
+    genres: [],
+    posterUrl: '',
   },
 };
 
