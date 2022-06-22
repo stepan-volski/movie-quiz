@@ -15,6 +15,7 @@ import { EMPTY_OBSERVER } from 'rxjs/internal/Subscriber';
 import { FilmShortResponse } from 'src/app/models/filmShortResponse.model';
 import { QuestionStatus } from 'src/app/models/question-status';
 import { RequestsService } from 'src/app/requests.service';
+import { TIMER } from 'src/app/shared/constants';
 import {
   gameFinished,
   gameInit,
@@ -26,8 +27,6 @@ import {
 } from '../actions/game.actions';
 import { getGameData, getMoviesInGame } from '../selectors/game.selector';
 import { IAppState, IMovie } from '../state/app.state';
-
-const TIMER = 155000;
 
 @Injectable()
 export class GameEffects {

@@ -4,6 +4,7 @@ import { Store } from '@ngrx/store';
 import { Subscription } from 'rxjs';
 import { GameStatus } from 'src/app/models/game-status';
 import { QuestionStatus } from 'src/app/models/question-status';
+import { TIMER } from 'src/app/shared/constants';
 import { skipQuestion } from 'src/app/store/actions/game.actions';
 import {
   getGameData,
@@ -25,8 +26,8 @@ export class QuizComponent implements OnInit, OnDestroy {
   currentMovie?: IMovie;
   status: number = GameStatus.NotStarted;
   questionsLeftStr: string = '';
-  remainingTime = 2 * 60 * 1000;
-  timerInterval?: ReturnType<typeof setInterval>
+  remainingTime = TIMER;
+  timerInterval?: ReturnType<typeof setInterval>;
 
   constructor(private _store: Store<IAppState>) {}
 
