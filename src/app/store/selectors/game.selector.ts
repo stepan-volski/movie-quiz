@@ -11,3 +11,7 @@ export const getCurrentMovie = (state: IAppState) => {
 export const getGameStatus = (state: IAppState) => {
   return state.game.status;
 };
+
+export const getCurrentMovieStatus = (state: IAppState) => {
+  return state.game.currentMovie.status;
+};

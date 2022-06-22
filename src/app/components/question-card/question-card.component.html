@@ -4,13 +4,15 @@ mat-expansion-panel<mat-card class="question-card" *ngIf="question">
   <h2>{{ question.slogan }}</h2>
 
   <mat-form-field class="example-form-field" appearance="fill">
-    <input matInput type="text" value="Enter your answer" />
+    <input matInput type="text" placeholder="Enter your answer" #clientAnswerInp />
   </mat-form-field>
 
   <button mat-raised-button color="primary" (click)="onAnswerSubmit()">
     Submit
   </button>
-  <p *ngIf="isShowAnswer">Correct Answer: {{ question.name }}</p>
+  <p *ngIf="currentMovieAnswerStatus$ | async">
+    Correct Answer: {{ question.name }}
+  </p>
 </mat-card>
 <tr></tr>
 <mat-card class="question-card" *ngIf="question">
@@ -104,3 +106,5 @@ mat-expansion-panel<mat-card class="question-card" *ngIf="question">
   <tr></tr>
   <button (click)="onAnswerSubmit()">Submit</button>
 </div> -->
+
+<!-- <div class="answer">{{ currentMovieAnswer$ | async }}</div> -->

@@ -1,5 +1,8 @@
 import { Component, ElementRef, Input, OnInit, ViewChild } from '@angular/core';
-import { IMovie } from 'src/app/store/state/app.state';
+import { Store } from '@ngrx/store';
+import { submitAnswer } from 'src/app/store/actions/game.actions';
+import { getCurrentMovieStatus } from 'src/app/store/selectors/game.selector';
+import { IAppState, IMovie } from 'src/app/store/state/app.state';
 
 @Component({
   selector: 'app-question-card',
@@ -9,8 +12,9 @@ import { IMovie } from 'src/app/store/state/app.state';
 export class QuestionCardComponent implements OnInit {
   @Input() question!: IMovie;
   @ViewChild('clientAnswerInp') clientAnswerInp!: ElementRef;
+  currentMovieAnswerStatus$ = this._store.select(getCurrentMovieStatus);
 
-  constructor() {}
+  constructor(private _store: Store<IAppState>) {}
   panelOpenState = false;
   isShowAnswer = false;
 
@@ -26,7 +30,10 @@ export class QuestionCardComponent implements OnInit {
   }
 
   onAnswerSubmit() {
-    this.isShowAnswer = !this.isShowAnswer;
+    // this.isShowAnswer = !this.isShowAnswer;
+    this._store.dispatch(
+      submitAnswer({ answer: this.clientAnswerInp.nativeElement.value })
+    );
   }
 
   getGenres(): string {
@@ -34,3 +41,7 @@ export class QuestionCardComponent implements OnInit {
     return genres.map((genre) => genre.genre).join(', ');
   }
 }
+function getCurrentMovieAnswer(getCurrentMovieAnswer: any) {
+  throw new Error('Function not implemented.');
+}
+

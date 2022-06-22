@@ -14,7 +14,6 @@ export interface IMovie {
   slogan: string;
   year: number;
   answer: string;
-  tipNumber: number;
   genres: { genre: string }[];
   posterUrl: string;
   maxScore: number;
@@ -65,7 +64,6 @@ export const initialGameState: IGameState = {
     slogan: '',
     year: -1,
     answer: '',
-    tipNumber: 0,
     genres: [],
     posterUrl: '',
     maxScore: 10,

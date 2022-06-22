@@ -59,7 +59,6 @@ export class RequestsService {
             slogan: '',
             year: film.year,
             answer: '',
-            tipNumber: 0,
             id: film.filmId,
             genres: film.genres,
             posterUrl: film.posterUrl,
@@ -74,7 +73,7 @@ export class RequestsService {
   }
 
   getTopFilmsMock(): Observable<FilmShortResponse[]> {
-    return of(movies).pipe(delay(3000));
+    return of(movies).pipe(delay(1000));
   }
 
   getTopFilms(): Observable<FilmShortResponse[]> {

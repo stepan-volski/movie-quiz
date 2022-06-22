@@ -1,6 +1,7 @@
 import { state } from '@angular/animations';
 import { createReducer, on } from '@ngrx/store';
 import { GameStatus } from 'src/app/models/game-status';
+import { QuestionStatus } from 'src/app/models/question-status';
 import {
   answerQuestion,
   gameFinished,
@@ -8,6 +9,7 @@ import {
   gameModeChanged,
   gameStarted,
   skipQuestion,
+  submitAnswer,
   updateCurrentMovie,
   updateMovies,
 } from '../actions/game.actions';
@@ -42,5 +44,13 @@ export const gameReducer = createReducer(
   on(updateCurrentMovie, (state, { movie }) => ({
     ...state,
     currentMovie: movie,
+  })),
+  on(submitAnswer, (state, { answer }) => ({
+    ...state,
+    currentMovie: {
+      ...state.currentMovie,
+      answer: answer,
+      status: QuestionStatus.Answered,
+    },
   }))
 );

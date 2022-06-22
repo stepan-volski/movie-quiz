@@ -7,6 +7,7 @@ import { RequestsService } from 'src/app/requests.service';
 import {
   gameInit,
   gameStarted,
+  submitAnswer,
   updateCurrentMovie,
   updateMovies,
 } from '../actions/game.actions';
@@ -32,6 +33,13 @@ export class GameEffects {
       )
     )
   );
+
+  // submitAnswer$ = createEffect(() =>
+  //   this._actions$.pipe(
+  //     ofType(submitAnswer),
+
+  //   )
+  // )
 
   constructor(
     private _actions$: Actions,

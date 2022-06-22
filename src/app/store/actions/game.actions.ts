@@ -28,3 +28,8 @@ export const updateCurrentMovie = createAction(
   '[Game] Update Current Movie',
   props<{ movie: IMovie }>()
 );
+
+export const submitAnswer = createAction(
+  '[Game] Submit Answer',
+  props<{ answer: string }>()
+);
