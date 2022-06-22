@@ -1,7 +1,7 @@
 <div
   class="game__container"
+  *ngIf="(gameStatus$ | async) === 2; else preloader"
 >
-  {{ gameStatus$ | async }}
   <div class="movies__container" *ngIf="moviesInGame$ | async as movies">
     <div *ngFor="let movie of movies">
       <p>{{ movie.id }}</p>
@@ -13,8 +13,3 @@
 <ng-template #preloader>
   <app-preloader></app-preloader>
 </ng-template>
-
-<!-- <button (click)="goToResults()">go to results</button> -->
-
-<!-- *ngIf="(gameStatus$ | async) as gameStatus === 0" -->
-<!-- *ngIf="(gameStatus$ | async) === 2; else preloader" -->
