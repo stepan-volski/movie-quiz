@@ -24,6 +24,8 @@ export class QuizComponent implements OnInit, OnDestroy {
   currentMovie?: IMovie;
   status: number = GameStatus.NotStarted;
   questionsLeftStr: string = '';
+  remainingTime = 2 * 60 * 1000;
+  timerInterval?: ReturnType<typeof setInterval>
 
   constructor(private _store: Store<IAppState>) {}
 
@@ -39,10 +41,17 @@ export class QuizComponent implements OnInit, OnDestroy {
         ).length
       } / ${gameData.allMoviesInGame.length}`;
     });
+
+    this.timerInterval = setInterval(() => {
+      if (this.remainingTime !== 0) {
+        this.remainingTime -= 1000;
+      }
+    }, 1000);
   }
 
   ngOnDestroy(): void {
     this.subscription?.unsubscribe();
+    clearInterval(this.timerInterval);
   }
 
   onSkipQuestion() {}
