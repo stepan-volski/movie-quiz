@@ -8,13 +8,16 @@ import {
   EMPTY,
   expand,
   filter,
+  forkJoin,
   from,
   map,
+  mergeMap,
   Observable,
   of,
   reduce,
   switchMap,
   takeWhile,
+  withLatestFrom,
 } from 'rxjs';
 import { IMovie } from './store/state/app.state';
 import { movies } from './mocks/movies';
@@ -44,10 +47,69 @@ export class RequestsService {
     return this.http.get(this.baseUrl + apiUrl, { params: queryParams });
   }
 
+  getMovie(id: number): Observable<IMovie> {
+    return this.getFilm(id).pipe(
+      switchMap((film: FilmFullResponse) =>
+        of({
+          name: film.nameRu,
+          slogan: film.slogan,
+          year: film.year,
+          answer: '',
+          id: film.kinopoiskId,
+          genres: film.genres,
+          posterUrl: film.posterUrl,
+          maxScore: 10,
+          currentScore: 10,
+          status: QuestionStatus.NotAnswered,
+        })
+      )
+    );
+  }
+
   getFilm(id: number) {
     const apiUrl = '/api/v2.2/films/' + id;
     return this.http.get<FilmFullResponse>(this.baseUrl + apiUrl);
   }
+
+  // getTopMovies(): Observable<FilmFullResponse[]> {
+  //   // return this.getTopFilms()
+  //   return this.getTopFilmsMock().pipe(map((film) => this.getFilm(film.filmId).subscribe()));
+  // }
+
+  // working solution!!!
+  // getTopMovies(): Observable<IMovie[]> {
+  //   return this.getTopFilmsMock().pipe(
+  //     mergeMap((films: FilmShortResponse[]) =>
+  //       forkJoin(
+  //         films.map((film: FilmShortResponse) =>
+  //           this.getFilm(film.filmId).pipe(
+  //             map((filmFull: FilmFullResponse) => {
+  //               return {
+  //                 name: filmFull.nameRu,
+  //                 slogan: filmFull.slogan,
+  //                 year: filmFull.year,
+  //                 answer: '',
+  //                 id: film.filmId,
+  //                 genres: filmFull.genres,
+  //                 posterUrl: filmFull.posterUrl,
+  //                 maxScore: 10,
+  //                 currentScore: 10,
+  //                 status: QuestionStatus.NotAnswered,
+  //               };
+  //             })
+  //           )
+  //         )
+  //       )
+  //     )
+  //   );
+  // }
+
+  //   this._http.get<any[]>(url).pipe(
+  //     mergeMap(arr => forkJoin(arr.map((item) => this._http.get(`someurl/${item.clientId}`).pipe(map((name) => {
+  //        item.name = name;
+  //        return item;
+  //     })
+  // ))))
 
   getTopMovies(): Observable<IMovie[]> {
     // return this.getTopFilms()
