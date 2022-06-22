@@ -4,11 +4,13 @@ import {MatExpansionModule} from '@angular/material/expansion';
 import { MatCardModule } from '@angular/material/card';
 import {MatButtonModule} from '@angular/material/button';
 import {MatProgressSpinnerModule} from '@angular/material/progress-spinner';
+import {MatInputModule} from '@angular/material/input'
+import {MatDividerModule} from '@angular/material/divider';
 
 
 @NgModule({
   declarations: [],
-  imports: [ CommonModule, MatCardModule, MatButtonModule, MatExpansionModule, MatProgressSpinnerModule ],
-  exports: [ MatCardModule, MatButtonModule, MatExpansionModule, MatProgressSpinnerModule ]
+  imports: [ CommonModule, MatCardModule, MatButtonModule, MatExpansionModule, MatProgressSpinnerModule, MatInputModule, MatDividerModule ],
+  exports: [ MatCardModule, MatButtonModule, MatExpansionModule, MatProgressSpinnerModule, MatInputModule, MatDividerModule ]
 })
 export class SharedModule { }
