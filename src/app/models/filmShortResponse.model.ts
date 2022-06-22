@@ -1,7 +1,7 @@
 export type FilmShortResponse = {
   filmId: number,
   nameRu: string,
-  nameEn: string,
+  nameEn: string | null,
   year: number,
   filmLength: string,
   countries: {'country': string}[],
@@ -10,4 +10,5 @@ export type FilmShortResponse = {
   ratingVoteCount: number,
   posterUrl: string,
   posterUrlPreview: string,
+  ratingChange?: string | null,
 }
