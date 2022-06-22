@@ -23,3 +23,8 @@ export const updateMovies = createAction(
   '[Game] Update Movies',
   props<{ movies: IMovie[] }>()
 );
+
+export const updateCurrentMovie = createAction(
+  '[Game] Update Current Movie',
+  props<{ movie: IMovie }>()
+);

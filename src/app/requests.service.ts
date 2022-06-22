@@ -18,6 +18,7 @@ import {
 } from 'rxjs';
 import { IMovie } from './store/state/app.state';
 import { movies } from './mocks/movies';
+import { QuestionStatus } from './models/question-status';
 
 @Injectable({
   providedIn: 'root',
@@ -62,6 +63,9 @@ export class RequestsService {
             id: film.filmId,
             genres: [],
             posterUrl: '',
+            maxScore: 10,
+            currentScore: 0,
+            status: QuestionStatus.NotAnswered,
           };
         });
         return movies;

@@ -1,6 +1,7 @@
 import { FilmFullResponse } from 'src/app/models/filmFullResponse.model';
 import { FilmShortResponse } from 'src/app/models/filmShortResponse.model';
 import { GameStatus } from 'src/app/models/game-status';
+import { QuestionStatus } from 'src/app/models/question-status';
 
 export interface ICategory {
   id: number;
@@ -8,14 +9,17 @@ export interface ICategory {
 }
 
 export interface IMovie {
-  id: number,
+  id: number;
   name: string;
   slogan: string;
   year: number;
   answer: string;
   tipNumber: number;
-  genres: {'genre': string}[];
+  genres: { genre: string }[];
   posterUrl: string;
+  maxScore: number;
+  currentScore: number;
+  status: number;
 }
 
 export interface IAppState {
@@ -64,6 +68,9 @@ export const initialGameState: IGameState = {
     tipNumber: 0,
     genres: [],
     posterUrl: '',
+    maxScore: 10,
+    currentScore: 0,
+    status: QuestionStatus.NotAnswered
   },
 };
 

@@ -8,6 +8,7 @@ import {
   gameModeChanged,
   gameStarted,
   skipQuestion,
+  updateCurrentMovie,
   updateMovies,
 } from '../actions/game.actions';
 import { getInitialAppState } from '../state/app.state';
@@ -37,5 +38,9 @@ export const gameReducer = createReducer(
     allMoviesInGame: [...movies]
       .sort((a, b) => 0.5 - Math.random())
       .slice(0, 20),
+  })),
+  on(updateCurrentMovie, (state, { movie }) => ({
+    ...state,
+    currentMovie: movie,
   }))
 );

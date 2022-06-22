@@ -2,11 +2,11 @@
   class="game__container"
   *ngIf="(gameStatus$ | async) === 2; else preloader"
 >
-  <div class="movies__container" *ngIf="moviesInGame$ | async as movies">
-    <div *ngFor="let movie of movies">
-      <p>{{ movie.id }}</p>
-      <p>{{ movie.name }}</p>
-    </div>
+  <div class="controls">
+    <button (click)="onSkipQuestion()">Skip Questoion</button>
+  </div>
+  <div class="movie__container" *ngIf="currentMovie$ | async as movie">
+    <app-question-card [question]="movie"></app-question-card>
   </div>
 </div>
 
