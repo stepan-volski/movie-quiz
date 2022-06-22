@@ -8,6 +8,7 @@ import {
   gameInit,
   gameModeChanged,
   gameStarted,
+  getNextCurrentMovieIndex,
   skipQuestion,
   submitAnswer,
   updateCurrentMovieIndex,
@@ -52,10 +53,14 @@ export const gameReducer = createReducer(
     ...state,
     allMoviesInGame: [...movies]
       .sort((a, b) => 0.5 - Math.random())
-      .slice(0, 20),
+      .slice(0, 5),
   })),
   on(updateCurrentMovieIndex, (state, { movieIndex }) => ({
     ...state,
     currentMovieIndex: movieIndex,
-  }))
+  })),
+  // on(getNextCurrentMovieIndex, (state) => ({
+  //   ...state,
+  //   currentMovieIndex: state.allMoviesInGame.filter()state.currentMovieIndex + 1,
+  // }))
 );

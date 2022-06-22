@@ -24,6 +24,10 @@ export const updateMovies = createAction(
   props<{ movies: IMovie[] }>()
 );
 
+export const getNextCurrentMovieIndex = createAction(
+  '[Game] Get Next Current Movie Index'
+);
+
 export const updateCurrentMovieIndex = createAction(
   '[Game] Update Current Movie',
   props<{ movieIndex: number }>()

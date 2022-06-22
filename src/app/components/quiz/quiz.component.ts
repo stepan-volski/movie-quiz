@@ -4,6 +4,7 @@ import { Store } from '@ngrx/store';
 import { Subscription } from 'rxjs';
 import { GameStatus } from 'src/app/models/game-status';
 import { QuestionStatus } from 'src/app/models/question-status';
+import { skipQuestion } from 'src/app/store/actions/game.actions';
 import {
   getGameData,
   getGameScore,
@@ -32,7 +33,7 @@ export class QuizComponent implements OnInit, OnDestroy {
       console.log(gameData);
       this.status = gameData.status;
       this.score = gameData.score;
-      this.currentMovie = gameData.allMoviesInGame[gameData.currentMovieIndex];;
+      this.currentMovie = gameData.allMoviesInGame[gameData.currentMovieIndex];
       this.questionsLeftStr = `${
         gameData.allMoviesInGame.filter(
           (film) => film.status === QuestionStatus.NotAnswered
@@ -45,5 +46,7 @@ export class QuizComponent implements OnInit, OnDestroy {
     this.subscription?.unsubscribe();
   }
 
-  onSkipQuestion() {}
+  onSkipQuestion() {
+    this._store.dispatch(skipQuestion());
+  }
 }
