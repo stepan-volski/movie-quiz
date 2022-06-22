@@ -56,14 +56,14 @@ export class RequestsService {
         const movies: IMovie[] = films.map((film) => {
           return {
             name: film.nameRu,
-            slogan: '',
+            slogan: 'Slogan test',
             year: film.year,
             answer: '',
             id: film.filmId,
             genres: film.genres,
             posterUrl: film.posterUrl,
             maxScore: 10,
-            currentScore: 0,
+            currentScore: 10,
             status: QuestionStatus.NotAnswered,
           };
         });

@@ -1,13 +1,20 @@
-mat-expansion-panel<mat-card class="question-card" *ngIf="question">
-  <h1>Question 1:</h1>
+<mat-card class="question-card" *ngIf="question">
+  <div class="question__wrapper">
+    <h1>Question 1:</h1>
+    <h2>{{ question.slogan }}</h2>
+  </div>
 
-  <h2>{{ question.slogan }}</h2>
-
-  <mat-form-field class="example-form-field" appearance="fill">
-    <input matInput type="text" placeholder="Enter your answer" #clientAnswerInp />
+  <mat-form-field class="answer__inp" appearance="fill">
+    <mat-label>Your Answer</mat-label>
+    <input matInput type="text" placeholder="Enter your answer" #clientAnswerInp >
   </mat-form-field>
+<!--
+  <mat-form-field class="example-form-field" appearance="fill">
 
-  <button mat-raised-button color="primary" (click)="onAnswerSubmit()">
+    <input matInput type="text" placeholder="Enter your answer" #clientAnswerInp />
+  </mat-form-field> -->
+
+  <button mat-raised-button color="primary" class="answer__btn" (click)="onAnswerSubmit()">
     Submit
   </button>
   <p *ngIf="currentMovieAnswerStatus$ | async">
@@ -15,7 +22,7 @@ mat-expansion-panel<mat-card class="question-card" *ngIf="question">
   </p>
 </mat-card>
 <tr></tr>
-<mat-card class="question-card" *ngIf="question">
+<mat-card class="hints-card" *ngIf="question">
   <h1>Hints:</h1>
   <!-- <mat-accordion>
     <mat-expansion-panel

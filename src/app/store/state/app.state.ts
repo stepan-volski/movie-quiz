@@ -67,7 +67,7 @@ export const initialGameState: IGameState = {
     genres: [],
     posterUrl: '',
     maxScore: 10,
-    currentScore: 0,
+    currentScore: 10,
     status: QuestionStatus.NotAnswered
   },
 };

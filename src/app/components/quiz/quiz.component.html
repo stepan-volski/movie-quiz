@@ -3,8 +3,9 @@
   *ngIf="(gameStatus$ | async) === 2; else preloader"
 >
   <div class="controls">
-    <button (click)="onSkipQuestion()">Skip Questoion</button>
+    <button mat-raised-button color="primary" (click)="onSkipQuestion()">Skip Question</button>
   </div>
+  <tr></tr>
   <div class="movie__container" *ngIf="currentMovie$ | async as movie">
     <app-question-card [question]="movie"></app-question-card>
   </div>

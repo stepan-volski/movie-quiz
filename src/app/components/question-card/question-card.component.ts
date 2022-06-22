@@ -18,19 +18,9 @@ export class QuestionCardComponent implements OnInit {
   panelOpenState = false;
   isShowAnswer = false;
 
-  // hints!: { name: string; body: {}; penalty: number }[];
-
-  ngOnInit(): void {
-    // this.hints = [
-    //   { name: 'Hint by year', body: this.question.year, penalty: 2 },
-    //   { name: 'Hint by genres', body: this.question.genres, penalty: 3 },
-    //   // { name: 'Hint by awards', body: this, penalty: 4 },
-    //   { name: 'Hint by image', body: this.question.posterUrl, penalty: 5 },
-    // ];
-  }
+  ngOnInit(): void {}
 
   onAnswerSubmit() {
-    // this.isShowAnswer = !this.isShowAnswer;
     this._store.dispatch(
       submitAnswer({ answer: this.clientAnswerInp.nativeElement.value })
     );
@@ -41,7 +31,3 @@ export class QuestionCardComponent implements OnInit {
     return genres.map((genre) => genre.genre).join(', ');
   }
 }
-function getCurrentMovieAnswer(getCurrentMovieAnswer: any) {
-  throw new Error('Function not implemented.');
-}
-
