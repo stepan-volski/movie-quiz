@@ -52,10 +52,12 @@ export class RequestsService {
           return {
             name: film.nameRu,
             slogan: '',
-            year: 2000,
+            year: -1,
             answer: '',
             tipNumber: 0,
             id: film.filmId,
+            genres: [],
+            posterUrl: '',
           };
         });
         return movies;
@@ -88,9 +90,8 @@ export class RequestsService {
     return this.http.get<TopFilmsResponse>(url);
   }
 
-  async getTopFilmIds(){
-    let array = await this.getTopFilms().toPromise() as FilmShortResponse[];
-    return array.map(el => el.filmId)
+  async getTopFilmIds() {
+    let array = (await this.getTopFilms().toPromise()) as FilmShortResponse[];
+    return array.map((el) => el.filmId);
   }
-
 }

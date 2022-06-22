@@ -16,6 +16,7 @@ import { SharedModule } from './shared/shared.module';
 import { MatCardModule } from '@angular/material/card';
 import { EffectsModule } from '@ngrx/effects';
 import { GameEffects } from './store/effects/game.effect';
+import { QuestionCardComponent } from './components/question-card/question-card.component';
 
 @NgModule({
   declarations: [
@@ -24,6 +25,7 @@ import { GameEffects } from './store/effects/game.effect';
     CategoryComponent,
     QuizComponent,
     ResultsComponent,
+    QuestionCardComponent,
   ],
   imports: [
     BrowserModule,
