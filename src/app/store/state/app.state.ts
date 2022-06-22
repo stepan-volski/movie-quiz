@@ -1,5 +1,6 @@
 import { FilmFullResponse } from 'src/app/models/filmFullResponse.model';
 import { FilmShortResponse } from 'src/app/models/filmShortResponse.model';
+import { GameStatus } from 'src/app/models/game-status';
 
 export interface ICategory {
   id: number;
@@ -28,7 +29,7 @@ export interface ICategoriesState {
 export interface IGameState {
   allMoviesInGame: IMovie[];
   nonAnsweredMoviesInGame: IMovie[];
-  status: string;
+  status: number;
   mode: string;
   currentMovie: IMovie;
 }
@@ -50,7 +51,7 @@ export const initialCategoriesSate: ICategoriesState = {
 export const initialGameState: IGameState = {
   allMoviesInGame: [],
   nonAnsweredMoviesInGame: [],
-  status: 'Not Started',
+  status: GameStatus.NotStarted,
   mode: '',
   currentMovie: {
     id: -1,

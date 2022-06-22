@@ -1,5 +1,6 @@
 import { state } from '@angular/animations';
 import { createReducer, on } from '@ngrx/store';
+import { GameStatus } from 'src/app/models/game-status';
 import {
   answerQuestion,
   gameFinished,
@@ -15,9 +16,9 @@ const game = getInitialAppState().game;
 
 export const gameReducer = createReducer(
   game,
-  on(gameInit, (state) => ({ ...state, status: 'Init' })),
-  on(gameFinished, (state) => ({ ...state, status: 'Finished' })),
-  on(gameStarted, (state) => ({ ...state, status: 'Started' })),
+  on(gameInit, (state) => ({ ...state, status: GameStatus.Inited })),
+  on(gameFinished, (state) => ({ ...state, status: GameStatus.Finished })),
+  on(gameStarted, (state) => ({ ...state, status: GameStatus.Started })),
   on(gameModeChanged, (state, { mode }) => ({ ...state, mode: mode })),
   on(skipQuestion, (state) => ({
     ...state,
