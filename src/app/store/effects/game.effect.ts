@@ -13,14 +13,19 @@ export class GameEffects {
       ofType(gameInit),
       switchMap(() =>
         this._requestsService.getTopMovies().pipe(
-          map((movies: IMovie[]) => updateMovies({ movies }))
-          // map(() => gameStarted())
+          map((movies: IMovie[]) => updateMovies({ movies })),
+          tap(() => {
+            console.log('game started');
+            return gameStarted();
+          })
         )
       )
       // tap((movies) => console.log(movies)),
       // map(() => gameStarted())
     )
   );
+
+  // checkGameStarted$ = createEffect(() => this._actions$.pipe());
 
   constructor(
     private _actions$: Actions,
