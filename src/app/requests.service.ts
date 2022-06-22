@@ -4,16 +4,20 @@ import { TopFilmsResponse } from './models/topFilmsResponse.model';
 import { FilmFullResponse } from './models/filmFullResponse.model';
 import { FilmShortResponse } from './models/filmShortResponse.model';
 import {
+  delay,
   EMPTY,
   expand,
   filter,
+  from,
   map,
   Observable,
+  of,
   reduce,
   switchMap,
   takeWhile,
 } from 'rxjs';
 import { IMovie } from './store/state/app.state';
+import { movies } from './mocks/movies';
 
 @Injectable({
   providedIn: 'root',
@@ -45,8 +49,8 @@ export class RequestsService {
   }
 
   getTopMovies(): Observable<IMovie[]> {
-    return this.getTopFilms().pipe(
-      // takeWhile((movies, i) => i < 20),
+    // return this.getTopFilms()
+    return this.getTopFilmsMock().pipe(
       map((films: FilmShortResponse[]) => {
         const movies: IMovie[] = films.map((film) => {
           return {
@@ -63,6 +67,10 @@ export class RequestsService {
         return movies;
       })
     );
+  }
+
+  getTopFilmsMock(): Observable<FilmShortResponse[]> {
+    return of(movies).pipe(delay(3000));
   }
 
   getTopFilms(): Observable<FilmShortResponse[]> {
