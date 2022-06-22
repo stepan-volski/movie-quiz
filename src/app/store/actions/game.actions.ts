@@ -24,9 +24,9 @@ export const updateMovies = createAction(
   props<{ movies: IMovie[] }>()
 );
 
-export const updateCurrentMovie = createAction(
+export const updateCurrentMovieIndex = createAction(
   '[Game] Update Current Movie',
-  props<{ movie: IMovie }>()
+  props<{ movieIndex: number }>()
 );
 
 export const submitAnswer = createAction(

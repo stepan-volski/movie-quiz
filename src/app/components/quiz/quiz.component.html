@@ -1,13 +1,17 @@
 <div
   class="game__container"
-  *ngIf="(gameStatus$ | async) === 2; else preloader"
+  *ngIf="status === 2; else preloader"
 >
   <div class="controls">
-    <button mat-raised-button color="primary" (click)="onSkipQuestion()">Skip Question</button>
+    <button mat-raised-button color="primary" (click)="onSkipQuestion()">
+      Skip Question
+    </button>
+    <h3 class="questions-left">Questions Left: <b>{{ questionsLeftStr }}</b></h3>
+    <h3 class="score">Score: <b>{{ score }}</b></h3>
   </div>
   <tr></tr>
-  <div class="movie__container" *ngIf="currentMovie$ | async as movie">
-    <app-question-card [question]="movie"></app-question-card>
+  <div class="movie__container" *ngIf="currentMovie">
+    <app-question-card [question]="currentMovie"></app-question-card>
   </div>
 </div>
 

@@ -36,7 +36,8 @@ export interface IGameState {
   nonAnsweredMoviesInGame: IMovie[];
   status: number;
   mode: string;
-  currentMovie: IMovie;
+  currentMovieIndex: number;
+  score: number;
 }
 
 export const initialCategoriesSate: ICategoriesState = {
@@ -58,18 +59,8 @@ export const initialGameState: IGameState = {
   nonAnsweredMoviesInGame: [],
   status: GameStatus.NotStarted,
   mode: '',
-  currentMovie: {
-    id: -1,
-    name: '',
-    slogan: '',
-    year: -1,
-    answer: '',
-    genres: [],
-    posterUrl: '',
-    maxScore: 10,
-    currentScore: 10,
-    status: QuestionStatus.NotAnswered
-  },
+  score: 0,
+  currentMovieIndex: 0,
 };
 
 export const initialAppState = {

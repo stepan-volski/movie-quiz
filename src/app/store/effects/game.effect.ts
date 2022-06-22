@@ -8,7 +8,7 @@ import {
   gameInit,
   gameStarted,
   submitAnswer,
-  updateCurrentMovie,
+  updateCurrentMovieIndex,
   updateMovies,
 } from '../actions/game.actions';
 import { getMoviesInGame } from '../selectors/game.selector';
@@ -24,9 +24,7 @@ export class GameEffects {
         this._requestsService.getTopMovies().pipe(
           map((movies: IMovie[]) => updateMovies({ movies })),
           tap((result) =>
-            this._store.dispatch(
-              updateCurrentMovie({ movie: result.movies[0] })
-            )
+            this._store.dispatch(updateCurrentMovieIndex({ movieIndex: 0 }))
           ),
           tap(() => this._store.dispatch(gameStarted()))
         )

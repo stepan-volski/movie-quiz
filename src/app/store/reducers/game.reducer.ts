@@ -10,10 +10,10 @@ import {
   gameStarted,
   skipQuestion,
   submitAnswer,
-  updateCurrentMovie,
+  updateCurrentMovieIndex,
   updateMovies,
 } from '../actions/game.actions';
-import { getInitialAppState } from '../state/app.state';
+import { getInitialAppState, IMovie } from '../state/app.state';
 
 const game = getInitialAppState().game;
 
@@ -23,17 +23,30 @@ export const gameReducer = createReducer(
   on(gameFinished, (state) => ({ ...state, status: GameStatus.Finished })),
   on(gameStarted, (state) => ({ ...state, status: GameStatus.Started })),
   on(gameModeChanged, (state, { mode }) => ({ ...state, mode: mode })),
-  on(skipQuestion, (state) => ({
+  // on(skipQuestion, (state) => ({
+  //   ...state,
+  //   currentMovie: state.currentMovie
+  //     ? state.nonAnsweredMoviesInGame[
+  //         state.nonAnsweredMoviesInGame.indexOf(state.currentMovie) + 1
+  //       ]
+  //     : state.nonAnsweredMoviesInGame[0],
+  // })),
+  on(submitAnswer, (state, { answer }) => ({
     ...state,
-    currentMovie: state.currentMovie
-      ? state.nonAnsweredMoviesInGame[
-          state.nonAnsweredMoviesInGame.indexOf(state.currentMovie) + 1
-        ]
-      : state.nonAnsweredMoviesInGame[0],
-  })),
-  on(answerQuestion, (state, { answer }) => ({
-    ...state,
-    currentMovie: { ...state.currentMovie, answer: answer },
+    allMoviesInGame: [...state.allMoviesInGame].reduce(
+      (acc: IMovie[], movie, i) => {
+        let updatedMovie;
+        if (i === state.currentMovieIndex) {
+          updatedMovie = {
+            ...movie,
+            answer: answer,
+            status: QuestionStatus.Answered,
+          };
+        }
+        return [...acc, updatedMovie || movie];
+      },
+      []
+    ),
   })),
   on(updateMovies, (state, { movies }) => ({
     ...state,
@@ -41,16 +54,8 @@ export const gameReducer = createReducer(
       .sort((a, b) => 0.5 - Math.random())
       .slice(0, 20),
   })),
-  on(updateCurrentMovie, (state, { movie }) => ({
+  on(updateCurrentMovieIndex, (state, { movieIndex }) => ({
     ...state,
-    currentMovie: movie,
-  })),
-  on(submitAnswer, (state, { answer }) => ({
-    ...state,
-    currentMovie: {
-      ...state.currentMovie,
-      answer: answer,
-      status: QuestionStatus.Answered,
-    },
+    currentMovieIndex: movieIndex,
   }))
 );
