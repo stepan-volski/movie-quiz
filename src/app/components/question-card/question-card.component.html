@@ -1,16 +1,28 @@
-<mat-card>
-  <h1>Question</h1>
+<mat-card class="question-card">
+  <h1>Question 1:</h1>
+
+  <h2>{{question.slogan}}</h2>
+
+  <mat-form-field class="example-form-field" appearance="fill">
+    <input matInput type="text" value="Enter your answer">
+  </mat-form-field>
+
+  <button mat-raised-button color="primary" (click)="onAnswerSubmit()">Submit</button>
+  <p *ngIf="isShowAnswer">Correct Answer: {{question.name}}</p>
+
+</mat-card>
+
+<mat-card class="question-card">
+  <h1>Hints:</h1>
   <mat-accordion *ngFor="let hint of hints">
     <mat-expansion-panel
       (opened)="panelOpenState = true"
-      (closed)="panelOpenState = false"
-    >
+      (closed)="panelOpenState = false">
       <mat-expansion-panel-header>
         <mat-panel-title>
           {{ hint.name }}
         </mat-panel-title>
         <mat-panel-description>
-          <!-- Currently I am {{panelOpenState ? 'open' : 'closed'}} -->
           This hint will cost you {{ hint.penalty }} points
         </mat-panel-description>
       </mat-expansion-panel-header>
@@ -19,7 +31,7 @@
   </mat-accordion>
 </mat-card>
 
-<div class="card" *ngIf="question">
+<!-- <div class="card" *ngIf="question">
   <div class="tip1">{{ question.slogan }}</div>
   <div class="tip2">{{ question.year }}</div>
   <div class="tip3">{{ question.genres }}</div>
@@ -29,4 +41,4 @@
   <p class="correct-answer">{{ question.name }}</p>
   <tr></tr>
   <button (click)="onAnswerSubmit()">Submit</button>
-</div>
+</div> -->
