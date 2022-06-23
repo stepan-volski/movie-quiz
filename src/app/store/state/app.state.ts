@@ -19,6 +19,7 @@ export interface IMovie {
   maxScore: number;
   currentScore: number;
   status: number;
+  loadingStatus: number;
 }
 
 export interface IAppState {

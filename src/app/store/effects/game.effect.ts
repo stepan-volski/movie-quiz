@@ -13,6 +13,7 @@ import {
 } from 'rxjs';
 import { EMPTY_OBSERVER } from 'rxjs/internal/Subscriber';
 import { FilmShortResponse } from 'src/app/models/filmShortResponse.model';
+import { MovieLoadingStatus } from 'src/app/models/movie-loading-status';
 import { QuestionStatus } from 'src/app/models/question-status';
 import { RequestsService } from 'src/app/requests.service';
 import { TIMER } from 'src/app/shared/constants';
@@ -47,7 +48,6 @@ export class GameEffects {
     () =>
       this._actions$.pipe(
         ofType(loadShortMoviesSuccess),
-        tap((data) => console.log('Short movies ', data)),
         tap(() => {
           this._store.dispatch(updateCurrentMovieIndex({ movieIndex: 0 }));
         }),
@@ -60,7 +60,15 @@ export class GameEffects {
     () =>
       this._actions$.pipe(
         ofType(updateCurrentMovieIndex),
-        tap(() => this._store.dispatch(startLoadingCurrentMovie()))
+        withLatestFrom(this._store.select(getGameData)),
+        tap(([index, gameData]) => {
+          if (
+            gameData.allMoviesInGame[gameData.currentMovieIndex]
+              .loadingStatus === MovieLoadingStatus.NotLoaded
+          ) {
+            this._store.dispatch(startLoadingCurrentMovie());
+          }
+        })
       ),
     { dispatch: false }
   );
@@ -69,16 +77,11 @@ export class GameEffects {
     this._actions$.pipe(
       ofType(startLoadingCurrentMovie),
       withLatestFrom(this._store.select(getGameData)),
-      tap(([empty, gameData]) => console.log('gameData ', gameData)),
       switchMap(([empty, gameData]) =>
+        // if (gameData.)
         this._requestsService
           .getMovie(gameData.allMoviesInGame[gameData.currentMovieIndex].id)
-          .pipe(
-            map((movie: IMovie) => loadCurrentMovieSuccess({ movie })),
-            tap(() =>
-              console.log(gameData.allMoviesInGame[gameData.currentMovieIndex])
-            )
-          )
+          .pipe(map((movie: IMovie) => loadCurrentMovieSuccess({ movie })))
       )
     )
   );
@@ -88,7 +91,6 @@ export class GameEffects {
       this._actions$.pipe(
         ofType(gameStarted),
         tap(() => {
-          // this._store.dispatch(gameStarted());
           setTimeout(() => this._store.dispatch(gameFinished()), TIMER);
         })
       ),

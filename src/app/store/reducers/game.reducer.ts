@@ -1,6 +1,7 @@
 import { state } from '@angular/animations';
 import { createReducer, on } from '@ngrx/store';
 import { GameStatus } from 'src/app/models/game-status';
+import { MovieLoadingStatus } from 'src/app/models/movie-loading-status';
 import { QuestionStatus } from 'src/app/models/question-status';
 import { CARDS_COUNT } from 'src/app/shared/constants';
 import {
@@ -71,6 +72,7 @@ export const gameReducer = createReducer(
         if (i === state.currentMovieIndex) {
           updatedMovie = {
             ...movie,
+            loadingStatus: MovieLoadingStatus.Loaded,
           };
         }
         return [...acc, updatedMovie || movie];

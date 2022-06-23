@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { HttpClient, HttpParams } from '@angular/common/http';
+import { HttpClient, HttpHeaders, HttpParams } from '@angular/common/http';
 import { TopFilmsResponse } from './models/topFilmsResponse.model';
 import { FilmFullResponse } from './models/filmFullResponse.model';
 import { FilmShortResponse } from './models/filmShortResponse.model';
@@ -15,6 +15,9 @@ import {
   Observable,
   of,
   reduce,
+  repeat,
+  retry,
+  shareReplay,
   switchMap,
   takeWhile,
   withLatestFrom,
@@ -22,6 +25,7 @@ import {
 import { IMovie } from './store/state/app.state';
 import { movies } from './mocks/movies';
 import { QuestionStatus } from './models/question-status';
+import { MovieLoadingStatus } from './models/movie-loading-status';
 
 @Injectable({
   providedIn: 'root',
@@ -61,6 +65,7 @@ export class RequestsService {
           maxScore: 10,
           currentScore: 10,
           status: QuestionStatus.NotAnswered,
+          loadingStatus: MovieLoadingStatus.NotLoaded,
         })
       )
     );
@@ -127,6 +132,7 @@ export class RequestsService {
             maxScore: 10,
             currentScore: 10,
             status: QuestionStatus.NotAnswered,
+            loadingStatus: MovieLoadingStatus.NotLoaded,
           };
         });
         return movies;
