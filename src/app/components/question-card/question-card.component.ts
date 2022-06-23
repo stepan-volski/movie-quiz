@@ -8,6 +8,7 @@ import {
   ViewChild,
 } from '@angular/core';
 import { Store } from '@ngrx/store';
+import { movies } from 'src/app/mocks/movies';
 import {
   startLoadingCurrentMovie,
   submitAnswer,
@@ -21,7 +22,17 @@ import { IAppState, IMovie } from 'src/app/store/state/app.state';
   styleUrls: ['./question-card.component.scss'],
 })
 export class QuestionCardComponent implements OnInit {
-  @Input() question!: IMovie;
+  private _question!: IMovie;
+  @Input() set question(movie: IMovie) {
+    this._question = movie;
+    if (this.clientAnswerInp) {
+      this.clientAnswerInp.nativeElement.value = '';
+    }
+  }
+
+  get question() {
+    return this._question;
+  }
   @ViewChild('clientAnswerInp') clientAnswerInp!: ElementRef;
   currentMovieAnswerStatus$ = this._store.select(getCurrentMovieStatus);
 
@@ -30,8 +41,7 @@ export class QuestionCardComponent implements OnInit {
   panelOpenState = false;
   isShowAnswer = false;
 
-  ngOnInit(): void {
-  }
+  ngOnInit(): void {}
 
   onAnswerSubmit() {
     this._store.dispatch(
