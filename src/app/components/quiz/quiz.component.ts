@@ -5,7 +5,7 @@ import { Subscription } from 'rxjs';
 import { GameStatus } from 'src/app/models/game-status';
 import { QuestionStatus } from 'src/app/models/question-status';
 import { TIMER } from 'src/app/shared/constants';
-import { skipQuestion } from 'src/app/store/actions/game.actions';
+import { skipQuestion, startLoadingCurrentMovie } from 'src/app/store/actions/game.actions';
 import {
   getGameData,
   getGameScore,
@@ -32,8 +32,8 @@ export class QuizComponent implements OnInit, OnDestroy {
   constructor(private _store: Store<IAppState>) {}
 
   ngOnInit(): void {
+
     this.subscription = this.game$.subscribe((gameData) => {
-      console.log(gameData);
       this.status = gameData.status;
       this.score = gameData.score;
       this.currentMovie = gameData.allMoviesInGame[gameData.currentMovieIndex];
@@ -43,6 +43,7 @@ export class QuizComponent implements OnInit, OnDestroy {
         ).length
       } / ${gameData.allMoviesInGame.length}`;
     });
+    // this._store.dispatch(startLoadingCurrentMovie());
 
     this.timerInterval = setInterval(() => {
       if (this.remainingTime !== 0) {
@@ -58,5 +59,6 @@ export class QuizComponent implements OnInit, OnDestroy {
 
   onSkipQuestion() {
     this._store.dispatch(skipQuestion());
+    // this._store.dispatch(startLoadingCurrentMovie());
   }
 }

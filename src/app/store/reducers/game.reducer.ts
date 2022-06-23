@@ -10,10 +10,11 @@ import {
   gameModeChanged,
   gameStarted,
   getNextCurrentMovieIndex,
+  loadCurrentMovieSuccess,
   skipQuestion,
   submitAnswer,
   updateCurrentMovieIndex,
-  updateMovies,
+  loadShortMoviesSuccess,
 } from '../actions/game.actions';
 import { getInitialAppState, IMovie } from '../state/app.state';
 
@@ -52,7 +53,7 @@ export const gameReducer = createReducer(
       []
     ),
   })),
-  on(updateMovies, (state, { movies }) => ({
+  on(loadShortMoviesSuccess, (state, { movies }) => ({
     ...state,
     allMoviesInGame: [...movies]
       .sort((a, b) => 0.5 - Math.random())
@@ -61,6 +62,21 @@ export const gameReducer = createReducer(
   on(updateCurrentMovieIndex, (state, { movieIndex }) => ({
     ...state,
     currentMovieIndex: movieIndex,
+  })),
+  on(loadCurrentMovieSuccess, (state, { movie }) => ({
+    ...state,
+    allMoviesInGame: [...state.allMoviesInGame].reduce(
+      (acc: IMovie[], curMovie, i) => {
+        let updatedMovie = { ...curMovie };
+        if (i === state.currentMovieIndex) {
+          updatedMovie = {
+            ...movie,
+          };
+        }
+        return [...acc, updatedMovie || movie];
+      },
+      []
+    ),
   }))
   // on(getNextCurrentMovieIndex, (state) => ({
   //   ...state,

@@ -19,7 +19,7 @@ export const answerQuestion = createAction(
   props<{ answer: string }>()
 );
 
-export const updateMovies = createAction(
+export const loadShortMoviesSuccess = createAction(
   '[Game] Update Movies',
   props<{ movies: IMovie[] }>()
 );
@@ -31,6 +31,15 @@ export const getNextCurrentMovieIndex = createAction(
 export const updateCurrentMovieIndex = createAction(
   '[Game] Update Current Movie',
   props<{ movieIndex: number }>()
+);
+
+export const startLoadingCurrentMovie = createAction(
+  '[Game] Start Loading Current Movie'
+);
+
+export const loadCurrentMovieSuccess = createAction(
+  '[Game] Loaded Current Movie',
+  props<{ movie: IMovie }>()
 );
 
 export const submitAnswer = createAction(

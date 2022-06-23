@@ -20,32 +20,79 @@ import {
   gameFinished,
   gameInit,
   gameStarted,
+  loadCurrentMovieSuccess,
   skipQuestion,
+  startLoadingCurrentMovie,
   submitAnswer,
   updateCurrentMovieIndex,
-  updateMovies,
+  loadShortMoviesSuccess as loadShortMoviesSuccess,
 } from '../actions/game.actions';
 import { getGameData, getMoviesInGame } from '../selectors/game.selector';
 import { IAppState, IMovie } from '../state/app.state';
 
 @Injectable()
 export class GameEffects {
-  initGame$ = createEffect(() =>
+  loadInitMovies$ = createEffect(() =>
     this._actions$.pipe(
       ofType(gameInit),
       switchMap(() =>
-        this._requestsService.getTopMovies().pipe(
-          map((movies: IMovie[]) => updateMovies({ movies })),
-          tap(() =>
-            this._store.dispatch(updateCurrentMovieIndex({ movieIndex: 0 }))
-          ),
-          tap(() => this._store.dispatch(gameStarted())),
-          tap(() =>
-            setTimeout(() => this._store.dispatch(gameFinished()), TIMER)
-          )
-        )
+        this._requestsService
+          .getTopMovies()
+          .pipe(map((movies: IMovie[]) => loadShortMoviesSuccess({ movies })))
       )
     )
+  );
+
+  setInitCurrentMovie$ = createEffect(
+    () =>
+      this._actions$.pipe(
+        ofType(loadShortMoviesSuccess),
+        tap((data) => console.log('Short movies ', data)),
+        tap(() => {
+          this._store.dispatch(updateCurrentMovieIndex({ movieIndex: 0 }));
+        }),
+        tap(() => this._store.dispatch(gameStarted()))
+      ),
+    { dispatch: false }
+  );
+
+  startLoadingCurrentMovie$ = createEffect(
+    () =>
+      this._actions$.pipe(
+        ofType(updateCurrentMovieIndex),
+        tap(() => this._store.dispatch(startLoadingCurrentMovie()))
+      ),
+    { dispatch: false }
+  );
+
+  loadCurrentMovie$ = createEffect(() =>
+    this._actions$.pipe(
+      ofType(startLoadingCurrentMovie),
+      withLatestFrom(this._store.select(getGameData)),
+      tap(([empty, gameData]) => console.log('gameData ', gameData)),
+      switchMap(([empty, gameData]) =>
+        this._requestsService
+          .getMovie(gameData.allMoviesInGame[gameData.currentMovieIndex].id)
+          .pipe(
+            map((movie: IMovie) => loadCurrentMovieSuccess({ movie })),
+            tap(() =>
+              console.log(gameData.allMoviesInGame[gameData.currentMovieIndex])
+            )
+          )
+      )
+    )
+  );
+
+  startGame$ = createEffect(
+    () =>
+      this._actions$.pipe(
+        ofType(gameStarted),
+        tap(() => {
+          // this._store.dispatch(gameStarted());
+          setTimeout(() => this._store.dispatch(gameFinished()), TIMER);
+        })
+      ),
+    { dispatch: false }
   );
 
   nextQuestion$ = createEffect(

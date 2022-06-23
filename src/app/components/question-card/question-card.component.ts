@@ -8,7 +8,10 @@ import {
   ViewChild,
 } from '@angular/core';
 import { Store } from '@ngrx/store';
-import { submitAnswer } from 'src/app/store/actions/game.actions';
+import {
+  startLoadingCurrentMovie,
+  submitAnswer,
+} from 'src/app/store/actions/game.actions';
 import { getCurrentMovieStatus } from 'src/app/store/selectors/game.selector';
 import { IAppState, IMovie } from 'src/app/store/state/app.state';
 
@@ -27,7 +30,8 @@ export class QuestionCardComponent implements OnInit {
   panelOpenState = false;
   isShowAnswer = false;
 
-  ngOnInit(): void {}
+  ngOnInit(): void {
+  }
 
   onAnswerSubmit() {
     this._store.dispatch(
