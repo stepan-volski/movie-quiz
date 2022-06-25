@@ -29,17 +29,16 @@ export class QuestionCardComponent implements OnInit {
       this.clientAnswerInp.nativeElement.value = '';
     }
   }
-
   get question() {
     return this._question;
   }
   @ViewChild('clientAnswerInp') clientAnswerInp!: ElementRef;
   currentMovieAnswerStatus$ = this._store.select(getCurrentMovieStatus);
 
-  constructor(private _store: Store<IAppState>) {}
-
   panelOpenState = false;
   isShowAnswer = false;
+
+  constructor(private _store: Store<IAppState>) {}
 
   ngOnInit(): void {}
 
@@ -47,6 +46,8 @@ export class QuestionCardComponent implements OnInit {
     this._store.dispatch(
       submitAnswer({ answer: this.clientAnswerInp.nativeElement.value })
     );
+    this.panelOpenState = false;
+    this.isShowAnswer = false;
   }
 
   getGenres(): string {
