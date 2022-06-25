@@ -1,4 +1,4 @@
-<div class="game__container" *ngIf="status === 2">
+<div class="game__wrapper" *ngIf="status === 2 && isMovieLoaded">
   <div class="controls">
     <button mat-raised-button color="primary" (click)="onSkipQuestion()">
       Skip Question
@@ -7,20 +7,23 @@
       Questions Left: <b>{{ questionsLeftStr }}</b>
     </h3>
     <h3 class="timer">
-      Time Left: <b>{{ remainingTime | date:'mm:ss' }}</b>
+      Time Left:
+      <b [ngStyle]="{ color: remainingTime < 20000 ? 'red' : 'black' }">{{
+        remainingTime | date: "mm:ss"
+      }}</b>
     </h3>
     <h3 class="score">
       Score: <b>{{ score }}</b>
     </h3>
   </div>
   <tr></tr>
-  <div class="movie__container" *ngIf="currentMovie">
+  <div class="question__wrapper" *ngIf="currentMovie">
     <app-question-card [question]="currentMovie"></app-question-card>
   </div>
 </div>
 
-<div class="congratulation" *ngIf="status === 3">
-  congratulation, Score {{ score }}
+<div class="congratulation__wrapper" *ngIf="status === 3">
+  Congratulation, Score {{ score }}
 </div>
 
-<app-preloader *ngIf="status !== 3 && status !== 2"></app-preloader>
+<app-preloader *ngIf="status === 2 && !isMovieLoaded"></app-preloader>
