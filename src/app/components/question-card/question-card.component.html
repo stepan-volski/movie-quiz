@@ -6,20 +6,44 @@
 
   <mat-form-field class="answer__inp" appearance="fill">
     <mat-label>Your Answer</mat-label>
-    <input matInput type="text" placeholder="Enter your answer" #clientAnswerInp >
+    <input
+      matInput
+      type="text"
+      placeholder="Enter your answer"
+      #clientAnswerInp
+    />
   </mat-form-field>
-<!--
+  <!--
   <mat-form-field class="example-form-field" appearance="fill">
 
     <input matInput type="text" placeholder="Enter your answer" #clientAnswerInp />
   </mat-form-field> -->
 
-  <button mat-raised-button color="primary" class="answer__btn" (click)="onAnswerSubmit()">
+  <button
+    mat-raised-button
+    color="primary"
+    class="answer__btn"
+    (click)="onAnswerSubmit()"
+  >
     Submit
   </button>
-  <p *ngIf="currentMovieAnswerStatus$ | async">
-    Correct Answer: {{ question.name }}
-  </p>
+  <div *ngIf="currentMovieAnswerStatus$ | async">
+    <p>
+      Your Answer:
+      <b
+        [ngStyle]="{
+          color:
+            question.answer.toUpperCase() === question.name.toUpperCase()
+              ? 'green'
+              : 'red'
+        }"
+        >{{ question.answer }}</b
+      >
+    </p>
+    <p>
+      Correct Answer: <b>{{ question.name }}</b>
+    </p>
+  </div>
 </mat-card>
 <tr></tr>
 <mat-card class="hints-card" *ngIf="question">
