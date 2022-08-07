@@ -23,6 +23,7 @@ import {
   loadShortMoviesSuccess,
   calculateScore,
   checkAnswer,
+  useTip,
 } from '../actions/game.actions';
 import { getInitialAppState, IGameState } from '../state/app.state';
 
@@ -58,6 +59,31 @@ export const gameReducer = createReducer(
   on(calculateScore, (state, { answer }) => ({
     ...state,
     score: calculateAnswerScore(state, answer),
+  })),
+  on(useTip, (state, { number }) => ({
+    ...state,
+    allMoviesInGame: [...state.allMoviesInGame].reduce(
+      (acc: IMovie[], movie, i) => {
+        let updatedMovie;
+        if (i === state.currentMovieIndex) {
+          updatedMovie = {
+            ...movie,
+            tips: [...movie.tips].reduce(
+              (accTips: Tip[], tip: Tip, i: number) => {
+                let updatedTip = null;
+                if (i === number) {
+                  updatedTip = { ...tip, isUsed: true };
+                }
+                return [...accTips, updatedTip || tip];
+              },
+              []
+            ),
+          };
+        }
+        return [...acc, updatedMovie || movie];
+      },
+      []
+    ),
   })),
   on(loadShortMoviesSuccess, (state, { movies }) => ({
     ...state,

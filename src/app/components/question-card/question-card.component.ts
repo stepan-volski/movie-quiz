@@ -7,6 +7,7 @@ import {
   SimpleChanges,
   ViewChild,
 } from '@angular/core';
+import { MatAccordion } from '@angular/material/expansion';
 import { Store } from '@ngrx/store';
 import { movies } from 'src/app/mocks/movies';
 import { IMovie } from 'src/app/models/movie.model';
@@ -14,8 +15,12 @@ import {
   calculateScore,
   startLoadingCurrentMovie,
   submitAnswer,
+  useTip,
 } from 'src/app/store/actions/game.actions';
-import { getCurrentMovieStatus } from 'src/app/store/selectors/game.selector';
+import {
+  getCurrentMovie,
+  getCurrentMovieStatus,
+} from 'src/app/store/selectors/game.selector';
 import { IAppState } from 'src/app/store/state/app.state';
 
 @Component({
@@ -24,37 +29,29 @@ import { IAppState } from 'src/app/store/state/app.state';
   styleUrls: ['./question-card.component.scss'],
 })
 export class QuestionCardComponent implements OnInit {
-  private _question!: IMovie;
-  @Input() set question(movie: IMovie) {
-    this._question = movie;
-    if (this.clientAnswerInp) {
-      this.clientAnswerInp.nativeElement.value = '';
-    }
-  }
-  get question() {
-    return this._question;
-  }
+  question!: IMovie;
   @ViewChild('clientAnswerInp') clientAnswerInp!: ElementRef;
   currentMovieAnswerStatus$ = this._store.select(getCurrentMovieStatus);
-
-  panelOpenState = false;
-  isShowAnswer = false;
+  currentMovie$ = this._store.select(getCurrentMovie);
 
   constructor(private _store: Store<IAppState>) {}
 
-  ngOnInit(): void {}
+  ngOnInit(): void {
+    this.currentMovie$.subscribe((movie) => (this.question = movie));
+  }
 
   onAnswerSubmit() {
     const submittedAnswer = this.clientAnswerInp.nativeElement.value;
     this._store.dispatch(submitAnswer({ answer: submittedAnswer }));
     this._store.dispatch(calculateScore({ answer: submittedAnswer }));
-
-    this.panelOpenState = false;
-    this.isShowAnswer = false;
   }
 
   getGenres(): string {
     const genres = this.question.genres;
     return genres.map((genre) => genre.genre).join(', ');
+  }
+
+  expandTip(id: number) {
+    this._store.dispatch(useTip({ number: id }));
   }
 }

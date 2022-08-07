@@ -41,45 +41,44 @@
 <mat-card class="hints-card" *ngIf="question">
   <h1>Hints:</h1>
 
-  <mat-accordion>
+  <mat-accordion multi #accordion>
     <mat-expansion-panel
-      (opened)="panelOpenState = true"
-      (closed)="panelOpenState = false"
+      [expanded]="question.tips[0].isUsed"
+      [disabled]="question.tips[0].isUsed"
+      (opened)="expandTip(0)"
     >
       <mat-expansion-panel-header>
         <mat-panel-title> Hint by genres </mat-panel-title>
         <mat-panel-description>
-          This hint will cost you 1 point
+          This hint will cost you 10 points
         </mat-panel-description>
       </mat-expansion-panel-header>
       <p>{{ getGenres() }}</p>
     </mat-expansion-panel>
-  </mat-accordion>
 
-  <mat-accordion>
     <mat-expansion-panel
-      (opened)="panelOpenState = true"
-      (closed)="panelOpenState = false"
+      [expanded]="question.tips[1].isUsed"
+      [disabled]="question.tips[1].isUsed"
+      (opened)="expandTip(1)"
     >
       <mat-expansion-panel-header>
         <mat-panel-title> Hint by year </mat-panel-title>
         <mat-panel-description>
-          This hint will cost you 1 point
+          This hint will cost you 20 points
         </mat-panel-description>
       </mat-expansion-panel-header>
       <p>{{ question.year }}</p>
     </mat-expansion-panel>
-  </mat-accordion>
 
-  <mat-accordion>
     <mat-expansion-panel
-      (opened)="panelOpenState = true"
-      (closed)="panelOpenState = false"
+      [expanded]="question.tips[2].isUsed"
+      [disabled]="question.tips[2].isUsed"
+      (opened)="expandTip(2)"
     >
       <mat-expansion-panel-header>
         <mat-panel-title> Hint by poster </mat-panel-title>
         <mat-panel-description>
-          This hint will cost you 1 point
+          This hint will cost you 30 points
         </mat-panel-description>
       </mat-expansion-panel-header>
       <img class="poster" src="{{ question.posterUrl }}" alt="poster" />

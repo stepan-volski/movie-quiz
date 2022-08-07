@@ -8,6 +8,10 @@ export const getCurrentMovieStatus = (state: IAppState) => {
   return state.game.allMoviesInGame[state.game.currentMovieIndex].status;
 };
 
+export const getCurrentMovie = (state: IAppState) => {
+  return state.game.allMoviesInGame[state.game.currentMovieIndex];
+};
+
 export const getGameStatus = (state: IAppState) => {
   return state.game.status;
 };

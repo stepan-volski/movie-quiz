@@ -56,3 +56,8 @@ export const checkAnswer = createAction(
   '[Game] Check Answer',
   props<{ answer: string }>()
 );
+
+export const useTip = createAction(
+  '[Game] Use Tip',
+  props<{ number: number }>()
+);
