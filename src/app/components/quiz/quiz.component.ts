@@ -3,9 +3,7 @@ import { Router } from '@angular/router';
 import { Store } from '@ngrx/store';
 import { Subscription } from 'rxjs';
 import { GameStatus } from 'src/app/models/game-status';
-import { MovieLoadingStatus } from 'src/app/models/movie-loading-status';
-import { IMovie } from 'src/app/models/movie.model';
-import { QuestionStatus } from 'src/app/models/question-status';
+import { IMovie, MovieLoadingStatus, QuestionStatus } from 'src/app/models/movie.model';
 import { TIMER } from 'src/app/shared/constants';
 import {
   skipQuestion,

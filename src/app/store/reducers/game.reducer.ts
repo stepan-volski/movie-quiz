@@ -1,9 +1,7 @@
 import { state } from '@angular/animations';
 import { createReducer, on } from '@ngrx/store';
 import { GameStatus } from 'src/app/models/game-status';
-import { MovieLoadingStatus } from 'src/app/models/movie-loading-status';
-import { IMovie } from 'src/app/models/movie.model';
-import { QuestionStatus } from 'src/app/models/question-status';
+import { IMovie, MovieLoadingStatus, QuestionStatus } from 'src/app/models/movie.model';
 import { CARDS_COUNT } from 'src/app/shared/constants';
 import {
   answerQuestion,

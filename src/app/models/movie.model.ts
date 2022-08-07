@@ -8,6 +8,16 @@ export interface IMovie {
     posterUrl: string;
     maxScore: number;
     currentScore: number;
-    status: number;
-    loadingStatus: number;
+    status: QuestionStatus;
+    loadingStatus: MovieLoadingStatus;
+  }
+
+  export enum MovieLoadingStatus {
+    NotLoaded,
+    Loaded,
+  }
+
+  export enum QuestionStatus {
+    NotAnswered,
+    Answered,
   }

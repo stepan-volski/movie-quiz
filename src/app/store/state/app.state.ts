@@ -2,7 +2,6 @@ import { FilmFullResponse } from 'src/app/models/filmFullResponse.model';
 import { FilmShortResponse } from 'src/app/models/filmShortResponse.model';
 import { GameStatus } from 'src/app/models/game-status';
 import { IMovie } from 'src/app/models/movie.model';
-import { QuestionStatus } from 'src/app/models/question-status';
 
 export interface ICategory {
   id: number;

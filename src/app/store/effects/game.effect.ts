@@ -13,9 +13,7 @@ import {
 } from 'rxjs';
 import { EMPTY_OBSERVER } from 'rxjs/internal/Subscriber';
 import { FilmShortResponse } from 'src/app/models/filmShortResponse.model';
-import { MovieLoadingStatus } from 'src/app/models/movie-loading-status';
-import { IMovie } from 'src/app/models/movie.model';
-import { QuestionStatus } from 'src/app/models/question-status';
+import { IMovie, MovieLoadingStatus, QuestionStatus } from 'src/app/models/movie.model';
 import { RequestsService } from 'src/app/requests.service';
 import { TIMER } from 'src/app/shared/constants';
 import {

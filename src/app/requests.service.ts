@@ -23,9 +23,7 @@ import {
   withLatestFrom,
 } from 'rxjs';
 import { movies } from './mocks/movies';
-import { QuestionStatus } from './models/question-status';
-import { MovieLoadingStatus } from './models/movie-loading-status';
-import { IMovie } from './models/movie.model';
+import { IMovie, MovieLoadingStatus, QuestionStatus } from './models/movie.model';
 
 @Injectable({
   providedIn: 'root',
