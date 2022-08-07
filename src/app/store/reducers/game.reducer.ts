@@ -1,8 +1,14 @@
 import { state } from '@angular/animations';
 import { createReducer, on } from '@ngrx/store';
 import { GameStatus } from 'src/app/models/game-status';
-import { IMovie, MovieLoadingStatus, QuestionStatus } from 'src/app/models/movie.model';
+import {
+  IMovie,
+  MovieLoadingStatus,
+  QuestionStatus,
+  Tip,
+} from 'src/app/models/movie.model';
 import { CARDS_COUNT } from 'src/app/shared/constants';
+import { isAnswerCorrect } from 'src/app/shared/utils';
 import {
   answerQuestion,
   gameFinished,
@@ -15,8 +21,10 @@ import {
   submitAnswer,
   updateCurrentMovieIndex,
   loadShortMoviesSuccess,
+  calculateScore,
+  checkAnswer,
 } from '../actions/game.actions';
-import { getInitialAppState, } from '../state/app.state';
+import { getInitialAppState, IGameState } from '../state/app.state';
 
 const game = getInitialAppState().game;
 
@@ -28,8 +36,6 @@ export const gameReducer = createReducer(
   on(gameModeChanged, (state, { mode }) => ({ ...state, mode: mode })),
   on(submitAnswer, (state, { answer }) => ({
     ...state,
-    score:
-      state.score + state.allMoviesInGame[state.currentMovieIndex].currentScore,
     allMoviesInGame: [...state.allMoviesInGame].reduce(
       (acc: IMovie[], movie, i) => {
         let updatedMovie;
@@ -38,12 +44,20 @@ export const gameReducer = createReducer(
             ...movie,
             answer: answer,
             status: QuestionStatus.Answered,
+            isAnswerCorrect: isAnswerCorrect(
+              getCurrentMovie(state).name,
+              answer
+            ),
           };
         }
         return [...acc, updatedMovie || movie];
       },
       []
     ),
+  })),
+  on(calculateScore, (state, { answer }) => ({
+    ...state,
+    score: calculateAnswerScore(state, answer),
   })),
   on(loadShortMoviesSuccess, (state, { movies }) => ({
     ...state,
@@ -72,3 +86,18 @@ export const gameReducer = createReducer(
     ),
   }))
 );
+
+function getCurrentMovie(state: IGameState) {
+  return state.allMoviesInGame[state.currentMovieIndex];
+}
+
+function calculateAnswerScore(state: IGameState, answer: string) {
+  return getCurrentMovie(state).isAnswerCorrect
+    ? state.score +
+        getCurrentMovie(state).maxScore -
+        getCurrentMovie(state).tips.reduce((acc: number, tip: Tip) => {
+          if (tip.isUsed) acc += tip.tipScore;
+          return acc;
+        }, 0)
+    : state.score;
+}

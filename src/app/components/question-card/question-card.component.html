@@ -27,10 +27,7 @@
       Your Answer:
       <b
         [ngStyle]="{
-          color:
-            question.answer.toUpperCase() === question.name.toUpperCase()
-              ? 'green'
-              : 'red'
+          color: question.isAnswerCorrect ? 'green' : 'red'
         }"
         >{{ question.answer }}</b
       >

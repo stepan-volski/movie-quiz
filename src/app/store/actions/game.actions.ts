@@ -46,3 +46,13 @@ export const submitAnswer = createAction(
   '[Game] Submit Answer',
   props<{ answer: string }>()
 );
+
+export const calculateScore = createAction(
+  '[Game] Calculate Score',
+  props<{ answer: string }>()
+);
+
+export const checkAnswer = createAction(
+  '[Game] Check Answer',
+  props<{ answer: string }>()
+);

@@ -22,6 +22,7 @@
     "@angular/router": "^14.0.0",
     "@ngrx/effects": "^14.0.0",
     "@ngrx/store": "^14.0.0",
+    "js-levenshtein": "^1.1.6",
     "rxjs": "~7.5.0",
     "tslib": "^2.3.0",
     "zone.js": "~0.11.4"

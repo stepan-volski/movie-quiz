@@ -23,7 +23,11 @@ import {
   withLatestFrom,
 } from 'rxjs';
 import { movies } from './mocks/movies';
-import { IMovie, MovieLoadingStatus, QuestionStatus } from './models/movie.model';
+import {
+  IMovie,
+  MovieLoadingStatus,
+  QuestionStatus,
+} from './models/movie.model';
 
 @Injectable({
   providedIn: 'root',
@@ -57,11 +61,26 @@ export class RequestsService {
           slogan: film.slogan,
           year: film.year,
           answer: '',
+          isAnswerCorrect: false,
           id: film.kinopoiskId,
           genres: film.genres,
           posterUrl: film.posterUrl,
-          maxScore: 10,
-          currentScore: 10,
+          maxScore: 100,
+          currentScore: 100,
+          tips: [
+            {
+              tipScore: 10,
+              isUsed: false,
+            },
+            {
+              tipScore: 20,
+              isUsed: false,
+            },
+            {
+              tipScore: 30,
+              isUsed: false,
+            },
+          ],
           status: QuestionStatus.NotAnswered,
           loadingStatus: MovieLoadingStatus.NotLoaded,
         })
@@ -121,14 +140,16 @@ export class RequestsService {
         const movies: IMovie[] = films.map((film) => {
           return {
             name: film.nameRu,
-            slogan: 'Slogan test',
+            slogan: '',
             year: film.year,
             answer: '',
+            isAnswerCorrect: false,
             id: film.filmId,
             genres: film.genres,
             posterUrl: film.posterUrl,
-            maxScore: 10,
-            currentScore: 10,
+            maxScore: 0,
+            currentScore: 0,
+            tips: [],
             status: QuestionStatus.NotAnswered,
             loadingStatus: MovieLoadingStatus.NotLoaded,
           };

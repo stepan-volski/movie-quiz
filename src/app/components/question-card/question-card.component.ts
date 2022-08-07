@@ -11,6 +11,7 @@ import { Store } from '@ngrx/store';
 import { movies } from 'src/app/mocks/movies';
 import { IMovie } from 'src/app/models/movie.model';
 import {
+  calculateScore,
   startLoadingCurrentMovie,
   submitAnswer,
 } from 'src/app/store/actions/game.actions';
@@ -44,9 +45,10 @@ export class QuestionCardComponent implements OnInit {
   ngOnInit(): void {}
 
   onAnswerSubmit() {
-    this._store.dispatch(
-      submitAnswer({ answer: this.clientAnswerInp.nativeElement.value })
-    );
+    const submittedAnswer = this.clientAnswerInp.nativeElement.value;
+    this._store.dispatch(submitAnswer({ answer: submittedAnswer }));
+    this._store.dispatch(calculateScore({ answer: submittedAnswer }));
+
     this.panelOpenState = false;
     this.isShowAnswer = false;
   }
