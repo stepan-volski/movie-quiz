@@ -14,6 +14,7 @@ import {
 import { EMPTY_OBSERVER } from 'rxjs/internal/Subscriber';
 import { FilmShortResponse } from 'src/app/models/filmShortResponse.model';
 import { MovieLoadingStatus } from 'src/app/models/movie-loading-status';
+import { IMovie } from 'src/app/models/movie.model';
 import { QuestionStatus } from 'src/app/models/question-status';
 import { RequestsService } from 'src/app/requests.service';
 import { TIMER } from 'src/app/shared/constants';
@@ -29,7 +30,7 @@ import {
   loadShortMoviesSuccess as loadShortMoviesSuccess,
 } from '../actions/game.actions';
 import { getGameData, getMoviesInGame } from '../selectors/game.selector';
-import { IAppState, IMovie } from '../state/app.state';
+import { IAppState,  } from '../state/app.state';
 
 @Injectable()
 export class GameEffects {
@@ -78,7 +79,6 @@ export class GameEffects {
       ofType(startLoadingCurrentMovie),
       withLatestFrom(this._store.select(getGameData)),
       switchMap(([empty, gameData]) =>
-        // if (gameData.)
         this._requestsService
           .getMovie(gameData.allMoviesInGame[gameData.currentMovieIndex].id)
           .pipe(map((movie: IMovie) => loadCurrentMovieSuccess({ movie })))

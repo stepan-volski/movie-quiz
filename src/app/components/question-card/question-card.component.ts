@@ -9,12 +9,13 @@ import {
 } from '@angular/core';
 import { Store } from '@ngrx/store';
 import { movies } from 'src/app/mocks/movies';
+import { IMovie } from 'src/app/models/movie.model';
 import {
   startLoadingCurrentMovie,
   submitAnswer,
 } from 'src/app/store/actions/game.actions';
 import { getCurrentMovieStatus } from 'src/app/store/selectors/game.selector';
-import { IAppState, IMovie } from 'src/app/store/state/app.state';
+import { IAppState } from 'src/app/store/state/app.state';
 
 @Component({
   selector: 'app-question-card',

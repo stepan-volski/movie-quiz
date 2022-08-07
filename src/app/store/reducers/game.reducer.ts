@@ -2,6 +2,7 @@ import { state } from '@angular/animations';
 import { createReducer, on } from '@ngrx/store';
 import { GameStatus } from 'src/app/models/game-status';
 import { MovieLoadingStatus } from 'src/app/models/movie-loading-status';
+import { IMovie } from 'src/app/models/movie.model';
 import { QuestionStatus } from 'src/app/models/question-status';
 import { CARDS_COUNT } from 'src/app/shared/constants';
 import {
@@ -17,7 +18,7 @@ import {
   updateCurrentMovieIndex,
   loadShortMoviesSuccess,
 } from '../actions/game.actions';
-import { getInitialAppState, IMovie } from '../state/app.state';
+import { getInitialAppState, } from '../state/app.state';
 
 const game = getInitialAppState().game;
 
@@ -27,14 +28,6 @@ export const gameReducer = createReducer(
   on(gameFinished, (state) => ({ ...state, status: GameStatus.Finished })),
   on(gameStarted, (state) => ({ ...state, status: GameStatus.Started })),
   on(gameModeChanged, (state, { mode }) => ({ ...state, mode: mode })),
-  // on(skipQuestion, (state) => ({
-  //   ...state,
-  //   currentMovie: state.currentMovie
-  //     ? state.nonAnsweredMoviesInGame[
-  //         state.nonAnsweredMoviesInGame.indexOf(state.currentMovie) + 1
-  //       ]
-  //     : state.nonAnsweredMoviesInGame[0],
-  // })),
   on(submitAnswer, (state, { answer }) => ({
     ...state,
     score:
@@ -80,8 +73,4 @@ export const gameReducer = createReducer(
       []
     ),
   }))
-  // on(getNextCurrentMovieIndex, (state) => ({
-  //   ...state,
-  //   currentMovieIndex: state.allMoviesInGame.filter()state.currentMovieIndex + 1,
-  // }))
 );

@@ -1,5 +1,5 @@
 import { createAction, props } from '@ngrx/store';
-import { IMovie } from '../state/app.state';
+import { IMovie } from 'src/app/models/movie.model';
 
 export const gameInit = createAction('[Game] Game Init');
 
