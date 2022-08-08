@@ -7,8 +7,8 @@ import {
 import { Observable } from 'rxjs';
 
 export class AddHeaderInterceptor implements HttpInterceptor {
-  apiKey = '51416cc1-0329-407d-b9bd-133c06a23300';
-  // apiKey = '31136b63-9165-4369-9d55-28fbda02e65f';
+  // apiKey = '51416cc1-0329-407d-b9bd-133c06a23300';
+  apiKey = '31136b63-9165-4369-9d55-28fbda02e65f';
 
   intercept(
     req: HttpRequest<any>,

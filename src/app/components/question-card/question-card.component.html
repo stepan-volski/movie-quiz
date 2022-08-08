@@ -1,6 +1,6 @@
 <mat-card class="question-card" *ngIf="question">
   <div class="question__wrapper">
-    <h1>Question 1:</h1>
+    <h1>Question {{ currentMovieIndex$ | async }}</h1>
     <h2>{{ question.slogan }}</h2>
   </div>
 

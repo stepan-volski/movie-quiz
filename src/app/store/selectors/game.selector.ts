@@ -12,6 +12,10 @@ export const getCurrentMovie = (state: IAppState) => {
   return state.game.allMoviesInGame[state.game.currentMovieIndex];
 };
 
+export const getCurrentMoviePosition = (state: IAppState) => {
+  return state.game.currentMovieIndex + 1;
+};
+
 export const getGameStatus = (state: IAppState) => {
   return state.game.status;
 };

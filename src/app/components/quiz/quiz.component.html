@@ -22,8 +22,6 @@
   </div>
 </div>
 
-<div class="congratulation__wrapper" *ngIf="status === 3">
-  Congratulation, Score {{ score }}
-</div>
+<app-results *ngIf="status === 3"></app-results>
 
 <app-preloader *ngIf="status === 2 && !isMovieLoaded"></app-preloader>

@@ -1,3 +1,4 @@
+import { getCurrencySymbol } from '@angular/common';
 import {
   Component,
   ElementRef,
@@ -19,6 +20,7 @@ import {
 } from 'src/app/store/actions/game.actions';
 import {
   getCurrentMovie,
+  getCurrentMoviePosition,
   getCurrentMovieStatus,
 } from 'src/app/store/selectors/game.selector';
 import { IAppState } from 'src/app/store/state/app.state';
@@ -33,6 +35,7 @@ export class QuestionCardComponent implements OnInit {
   @ViewChild('clientAnswerInp') clientAnswerInp!: ElementRef;
   currentMovieAnswerStatus$ = this._store.select(getCurrentMovieStatus);
   currentMovie$ = this._store.select(getCurrentMovie);
+  currentMovieIndex$ = this._store.select(getCurrentMoviePosition);
 
   constructor(private _store: Store<IAppState>) {}
 

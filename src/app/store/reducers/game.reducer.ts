@@ -63,11 +63,12 @@ export const gameReducer = createReducer(
   on(useTip, (state, { number }) => ({
     ...state,
     allMoviesInGame: [...state.allMoviesInGame].reduce(
-      (acc: IMovie[], movie, i) => {
+      (acc: IMovie[], movie: IMovie, i) => {
         let updatedMovie;
         if (i === state.currentMovieIndex) {
           updatedMovie = {
             ...movie,
+            maxScore: movie.maxScore - movie.tips[number].tipScore,
             tips: [...movie.tips].reduce(
               (accTips: Tip[], tip: Tip, i: number) => {
                 let updatedTip = null;
