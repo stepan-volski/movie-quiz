@@ -1,5 +1,6 @@
 import { getCurrencySymbol } from '@angular/common';
 import {
+  ChangeDetectionStrategy,
   Component,
   ElementRef,
   Input,
@@ -30,6 +31,7 @@ import { IAppState } from 'src/app/store/state/app.state';
   selector: 'app-question-card',
   templateUrl: './question-card.component.html',
   styleUrls: ['./question-card.component.scss'],
+  changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class QuestionCardComponent implements OnInit {
   // question!: IMovie;

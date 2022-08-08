@@ -15,3 +15,12 @@
 .timer {
   margin: 0;
 }
+
+.game {
+  &__container {
+    width: 90%;
+    max-width: 800px;
+    display: flex;
+    justify-content: center;
+  }
+}

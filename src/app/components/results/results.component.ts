@@ -1,4 +1,9 @@
-import { Component, OnDestroy, OnInit } from '@angular/core';
+import {
+  ChangeDetectionStrategy,
+  Component,
+  OnDestroy,
+  OnInit,
+} from '@angular/core';
 import { Router } from '@angular/router';
 import { Store } from '@ngrx/store';
 import { Subscription } from 'rxjs';
@@ -21,6 +26,7 @@ export interface QuestionResult {
   selector: 'app-results',
   templateUrl: './results.component.html',
   styleUrls: ['./results.component.scss'],
+  changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class ResultsComponent implements OnInit, OnDestroy {
   game$ = this._store.select(getGameData);

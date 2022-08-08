@@ -1,4 +1,4 @@
-import { Component, Input, OnDestroy, OnInit } from '@angular/core';
+import { ChangeDetectionStrategy, Component, Input, OnDestroy, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { Store } from '@ngrx/store';
 import { Subscription } from 'rxjs';
@@ -21,6 +21,7 @@ import { IAppState } from 'src/app/store/state/app.state';
   selector: 'app-quiz',
   templateUrl: './quiz.component.html',
   styleUrls: ['./quiz.component.scss'],
+  changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class QuizComponent implements OnInit, OnDestroy {
   game$ = this._store.select(getGameData);
@@ -37,6 +38,7 @@ export class QuizComponent implements OnInit, OnDestroy {
 
   ngOnInit(): void {
     this.subscription = this.game$.subscribe((gameData) => {
+      console.log(gameData.status)
       this.status = gameData.status;
       this.score = gameData.score;
       this.currentMovie = gameData.allMoviesInGame[gameData.currentMovieIndex];

@@ -58,7 +58,7 @@ export class RequestsService {
       switchMap((film: FilmFullResponse) =>
         of({
           name: film.nameRu,
-          slogan: film.slogan,
+          slogan: film.slogan || film.shortDescription,
           year: film.year,
           answer: '',
           isAnswerCorrect: false,

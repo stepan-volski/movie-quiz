@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { ChangeDetectionStrategy, Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { Store } from '@ngrx/store';
 import { RequestsService } from 'src/app/requests.service';
@@ -10,6 +10,7 @@ import { IAppState, ICategory } from 'src/app/store/state/app.state';
   selector: 'app-categories',
   templateUrl: './categories.component.html',
   styleUrls: ['./categories.component.scss'],
+  changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class CategoriesComponent implements OnInit {
   categories: ICategory[] = [
@@ -29,7 +30,5 @@ export class CategoriesComponent implements OnInit {
     );
     this._store.dispatch(gameInit());
     this._router.navigate(['/quiz']);
-
-    console.log(id);
   }
 }
