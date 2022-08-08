@@ -27,7 +27,14 @@
       *matCellDef="let element"
       [ngStyle]="{ color: element.isAnswerCorrect ? 'green' : 'red' }"
     >
-      {{ element.isAnswerCorrect ? "yes" : "no" }}
+      <mat-slide-toggle
+        *ngIf="!element.isAnswerCorrect"
+        [checked]="element.isAnswerCorrect"
+        (change)="onToggleCorrectAnswer(element)"
+        color="primary"
+        >no</mat-slide-toggle
+      >
+      <p *ngIf="element.isAnswerCorrect">yes</p>
     </td>
   </ng-container>
 
@@ -40,7 +47,7 @@
   <tr mat-row *matRowDef="let row; columns: displayedColumns"></tr>
 </table>
 
-<br><br>
+<br /><br />
 <button mat-raised-button color="primary" (click)="toHomePage()">
   To Home Page
 </button>

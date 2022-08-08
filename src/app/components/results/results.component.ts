@@ -4,12 +4,17 @@ import {
   OnDestroy,
   OnInit,
 } from '@angular/core';
+import { MatCellDef } from '@angular/material/table';
 import { Router } from '@angular/router';
 import { Store } from '@ngrx/store';
 import { Subscription } from 'rxjs';
 import { Tip } from 'src/app/models/movie.model';
 import { isAnswerCorrect } from 'src/app/shared/utils';
-import { gameReset } from 'src/app/store/actions/game.actions';
+import {
+  calculateGameScore,
+  gameReset,
+  setAnswerAsCorrect,
+} from 'src/app/store/actions/game.actions';
 import { getGameData } from 'src/app/store/selectors/game.selector';
 import { IAppState, IGameState } from 'src/app/store/state/app.state';
 
@@ -47,6 +52,11 @@ export class ResultsComponent implements OnInit, OnDestroy {
     this.gameSubscription = this.game$.subscribe((gameData) =>
       this.fillResults(gameData)
     );
+  }
+
+  onToggleCorrectAnswer(element: any) {
+    this._store.dispatch(setAnswerAsCorrect({ number: element.number }));
+    this._store.dispatch(calculateGameScore());
   }
 
   toHomePage() {

@@ -52,6 +52,10 @@ export const calculateScore = createAction(
   props<{ answer: string }>()
 );
 
+export const calculateGameScore = createAction(
+  '[Game] Calculate Game Score'
+);
+
 export const checkAnswer = createAction(
   '[Game] Check Answer',
   props<{ answer: string }>()
@@ -59,6 +63,11 @@ export const checkAnswer = createAction(
 
 export const useTip = createAction(
   '[Game] Use Tip',
+  props<{ number: number }>()
+);
+
+export const setAnswerAsCorrect = createAction(
+  '[Game] Set Answer As Correct',
   props<{ number: number }>()
 );
 

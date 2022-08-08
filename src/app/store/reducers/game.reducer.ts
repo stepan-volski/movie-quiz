@@ -25,6 +25,8 @@ import {
   checkAnswer,
   useTip,
   gameReset,
+  setAnswerAsCorrect,
+  calculateGameScore,
 } from '../actions/game.actions';
 import { getInitialAppState, IGameState } from '../state/app.state';
 
@@ -45,9 +47,27 @@ export const gameReducer = createReducer(
     ...state,
     score: calculateAnswerScore(state, answer),
   })),
+  on(calculateGameScore, (state) => ({
+    ...state,
+    score: state.allMoviesInGame.reduce((acc: number, question: IMovie) => {
+      if (question.isAnswerCorrect) {
+        acc +=
+          question.maxScore -
+          question.tips.reduce((accTips: number, tip: Tip) => {
+            if (tip.isUsed) accTips += tip.tipScore;
+            return accTips;
+          }, 0);
+      }
+      return acc;
+    }, 0),
+  })),
   on(useTip, (state, { number }) => ({
     ...state,
     allMoviesInGame: updatedMoviesWithUsedTip(state, number),
+  })),
+  on(setAnswerAsCorrect, (state, { number }) => ({
+    ...state,
+    allMoviesInGame: updatedMoviesWithCorrectAnswer(state, number),
   })),
   on(loadShortMoviesSuccess, (state, { movies }) => ({
     ...state,
@@ -77,6 +97,25 @@ export const gameReducer = createReducer(
   }))
 );
 
+function updatedMoviesWithCorrectAnswer(
+  state: IGameState,
+  movieNumber: number
+) {
+  return [...state.allMoviesInGame].reduce(
+    (acc: IMovie[], movie: IMovie, i) => {
+      let updatedMovie;
+      if (i === movieNumber - 1) {
+        updatedMovie = {
+          ...movie,
+          isAnswerCorrect: true,
+        };
+      }
+      return [...acc, updatedMovie || movie];
+    },
+    []
+  );
+}
+
 function updatedMoviesWithAnswer(state: IGameState, answer: string) {
   return [...state.allMoviesInGame].reduce((acc: IMovie[], movie, i) => {
     let updatedMovie;
@@ -99,7 +138,7 @@ function updatedMoviesWithUsedTip(state: IGameState, tipNumber: number) {
       if (i === state.currentMovieIndex) {
         updatedMovie = {
           ...movie,
-          currentScore: movie.currentScore - movie.tips[tipNumber].tipScore, 
+          currentScore: movie.currentScore - movie.tips[tipNumber].tipScore,
           tips: [...movie.tips].reduce(
             (accTips: Tip[], tip: Tip, i: number) => {
               let updatedTip = null;

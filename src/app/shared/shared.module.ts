@@ -7,6 +7,7 @@ import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 import { MatInputModule } from '@angular/material/input';
 import { MatDividerModule } from '@angular/material/divider';
 import { MatTableModule } from '@angular/material/table';
+import {MatSlideToggleModule} from '@angular/material/slide-toggle';
 
 @NgModule({
   declarations: [],
@@ -19,6 +20,7 @@ import { MatTableModule } from '@angular/material/table';
     MatInputModule,
     MatDividerModule,
     MatTableModule,
+    MatSlideToggleModule
   ],
   exports: [
     MatCardModule,
@@ -28,6 +30,7 @@ import { MatTableModule } from '@angular/material/table';
     MatInputModule,
     MatDividerModule,
     MatTableModule,
+    MatSlideToggleModule
   ],
 })
 export class SharedModule {}
