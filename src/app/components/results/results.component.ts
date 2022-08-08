@@ -4,6 +4,7 @@ import { Store } from '@ngrx/store';
 import { Subscription } from 'rxjs';
 import { Tip } from 'src/app/models/movie.model';
 import { isAnswerCorrect } from 'src/app/shared/utils';
+import { gameReset } from 'src/app/store/actions/game.actions';
 import { getGameData } from 'src/app/store/selectors/game.selector';
 import { IAppState, IGameState } from 'src/app/store/state/app.state';
 
@@ -34,12 +35,17 @@ export class ResultsComponent implements OnInit, OnDestroy {
     'score',
   ];
 
-  constructor(private _store: Store<IAppState>) {}
+  constructor(private _store: Store<IAppState>, private _router: Router) {}
 
   ngOnInit(): void {
     this.gameSubscription = this.game$.subscribe((gameData) =>
       this.fillResults(gameData)
     );
+  }
+
+  toHomePage() {
+    this._router.navigate(['/']);
+    this._store.dispatch(gameReset());
   }
 
   private fillResults(gameData: IGameState) {
@@ -51,8 +57,8 @@ export class ResultsComponent implements OnInit, OnDestroy {
         correctAnswer: question.name,
         providedAnswer: question.answer,
         usedTips: question.tips.filter((tip) => tip.isUsed).length,
-        maxScore: question.maxScore,
-        score: question.isAnswerCorrect ? question.maxScore : 0,
+        maxScore: question.currentScore,
+        score: question.isAnswerCorrect ? question.currentScore : 0,
         isAnswerCorrect: question.isAnswerCorrect,
       });
     });

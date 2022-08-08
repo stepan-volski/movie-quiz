@@ -22,7 +22,11 @@
 
   <ng-container matColumnDef="isAnswerCorrect">
     <th mat-header-cell *matHeaderCellDef>Is Correct?</th>
-    <td mat-cell *matCellDef="let element" [ngStyle]="{color: element.isAnswerCorrect ? 'green' : 'red'}">
+    <td
+      mat-cell
+      *matCellDef="let element"
+      [ngStyle]="{ color: element.isAnswerCorrect ? 'green' : 'red' }"
+    >
       {{ element.isAnswerCorrect ? "yes" : "no" }}
     </td>
   </ng-container>
@@ -35,3 +39,8 @@
   <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
   <tr mat-row *matRowDef="let row; columns: displayedColumns"></tr>
 </table>
+
+<br><br>
+<button mat-raised-button color="primary" (click)="toHomePage()">
+  To Home Page
+</button>

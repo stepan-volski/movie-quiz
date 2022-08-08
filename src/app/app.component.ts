@@ -8,8 +8,4 @@ import { RequestsService } from './requests.service';
 })
 export class AppComponent {
   constructor(private reqService: RequestsService) {}
-
-  getFilms(){
-    this.reqService.getTopFilms().subscribe();
-  }
 }

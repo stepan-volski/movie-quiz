@@ -22,6 +22,7 @@ import {
   getCurrentMovie,
   getCurrentMoviePosition,
   getCurrentMovieStatus,
+  getGameData,
 } from 'src/app/store/selectors/game.selector';
 import { IAppState } from 'src/app/store/state/app.state';
 
@@ -31,7 +32,7 @@ import { IAppState } from 'src/app/store/state/app.state';
   styleUrls: ['./question-card.component.scss'],
 })
 export class QuestionCardComponent implements OnInit {
-  question!: IMovie;
+  // question!: IMovie;
   @ViewChild('clientAnswerInp') clientAnswerInp!: ElementRef;
   currentMovieAnswerStatus$ = this._store.select(getCurrentMovieStatus);
   currentMovie$ = this._store.select(getCurrentMovie);
@@ -40,7 +41,10 @@ export class QuestionCardComponent implements OnInit {
   constructor(private _store: Store<IAppState>) {}
 
   ngOnInit(): void {
-    this.currentMovie$.subscribe((movie) => (this.question = movie));
+    this._store
+      .select(getGameData)
+      .subscribe((gameData) => console.log(gameData));
+    // this.currentMovie$.subscribe((movie) => (this.question = movie));
   }
 
   onAnswerSubmit() {
@@ -49,8 +53,7 @@ export class QuestionCardComponent implements OnInit {
     this._store.dispatch(calculateScore({ answer: submittedAnswer }));
   }
 
-  getGenres(): string {
-    const genres = this.question.genres;
+  getGenresStr(genres: { genre: string }[]): string {
     return genres.map((genre) => genre.genre).join(', ');
   }
 

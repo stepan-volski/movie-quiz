@@ -1,4 +1,4 @@
-<mat-card class="question-card" *ngIf="question">
+<mat-card class="question-card" *ngIf="currentMovie$ | async as question">
   <div class="question__wrapper">
     <h1>Question {{ currentMovieIndex$ | async }}</h1>
     <h2>{{ question.slogan }}</h2>
@@ -36,10 +36,9 @@
       Correct Answer: <b>{{ question.name }}</b>
     </p>
   </div>
-</mat-card>
-<tr></tr>
-<mat-card class="hints-card" *ngIf="question">
-  <h1>Hints:</h1>
+
+  <tr></tr>
+  <h2 class="hints_title">Hints:</h2>
 
   <mat-accordion multi #accordion>
     <mat-expansion-panel
@@ -53,7 +52,7 @@
           This hint will cost you 10 points
         </mat-panel-description>
       </mat-expansion-panel-header>
-      <p>{{ getGenres() }}</p>
+      <p>{{ getGenresStr(question.genres) }}</p>
     </mat-expansion-panel>
 
     <mat-expansion-panel
@@ -85,3 +84,7 @@
     </mat-expansion-panel>
   </mat-accordion>
 </mat-card>
+<tr></tr>
+<!-- <mat-card class="hints-card" *ngIf="question"> -->
+
+<!-- </mat-card> -->

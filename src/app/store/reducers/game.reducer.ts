@@ -24,6 +24,7 @@ import {
   calculateScore,
   checkAnswer,
   useTip,
+  gameReset,
 } from '../actions/game.actions';
 import { getInitialAppState, IGameState } from '../state/app.state';
 
@@ -32,29 +33,13 @@ const game = getInitialAppState().game;
 export const gameReducer = createReducer(
   game,
   on(gameInit, (state) => ({ ...state, status: GameStatus.Inited })),
+  on(gameReset, (state) => ({ ...getInitialAppState().game })),
   on(gameFinished, (state) => ({ ...state, status: GameStatus.Finished })),
   on(gameStarted, (state) => ({ ...state, status: GameStatus.Started })),
   on(gameModeChanged, (state, { mode }) => ({ ...state, mode: mode })),
   on(submitAnswer, (state, { answer }) => ({
     ...state,
-    allMoviesInGame: [...state.allMoviesInGame].reduce(
-      (acc: IMovie[], movie, i) => {
-        let updatedMovie;
-        if (i === state.currentMovieIndex) {
-          updatedMovie = {
-            ...movie,
-            answer: answer,
-            status: QuestionStatus.Answered,
-            isAnswerCorrect: isAnswerCorrect(
-              getCurrentMovie(state).name,
-              answer
-            ),
-          };
-        }
-        return [...acc, updatedMovie || movie];
-      },
-      []
-    ),
+    allMoviesInGame: updatedMoviesWithAnswer(state, answer),
   })),
   on(calculateScore, (state, { answer }) => ({
     ...state,
@@ -62,29 +47,7 @@ export const gameReducer = createReducer(
   })),
   on(useTip, (state, { number }) => ({
     ...state,
-    allMoviesInGame: [...state.allMoviesInGame].reduce(
-      (acc: IMovie[], movie: IMovie, i) => {
-        let updatedMovie;
-        if (i === state.currentMovieIndex) {
-          updatedMovie = {
-            ...movie,
-            maxScore: movie.maxScore - movie.tips[number].tipScore,
-            tips: [...movie.tips].reduce(
-              (accTips: Tip[], tip: Tip, i: number) => {
-                let updatedTip = null;
-                if (i === number) {
-                  updatedTip = { ...tip, isUsed: true };
-                }
-                return [...accTips, updatedTip || tip];
-              },
-              []
-            ),
-          };
-        }
-        return [...acc, updatedMovie || movie];
-      },
-      []
-    ),
+    allMoviesInGame: updatedMoviesWithUsedTip(state, number),
   })),
   on(loadShortMoviesSuccess, (state, { movies }) => ({
     ...state,
@@ -99,7 +62,7 @@ export const gameReducer = createReducer(
   on(loadCurrentMovieSuccess, (state, { movie }) => ({
     ...state,
     allMoviesInGame: [...state.allMoviesInGame].reduce(
-      (acc: IMovie[], curMovie, i) => {
+      (acc: IMovie[], curMovie: IMovie, i) => {
         let updatedMovie = { ...curMovie };
         if (i === state.currentMovieIndex) {
           updatedMovie = {
@@ -113,6 +76,47 @@ export const gameReducer = createReducer(
     ),
   }))
 );
+
+function updatedMoviesWithAnswer(state: IGameState, answer: string) {
+  return [...state.allMoviesInGame].reduce((acc: IMovie[], movie, i) => {
+    let updatedMovie;
+    if (i === state.currentMovieIndex) {
+      updatedMovie = {
+        ...movie,
+        answer: answer,
+        status: QuestionStatus.Answered,
+        isAnswerCorrect: isAnswerCorrect(getCurrentMovie(state).name, answer),
+      };
+    }
+    return [...acc, updatedMovie || movie];
+  }, []);
+}
+
+function updatedMoviesWithUsedTip(state: IGameState, tipNumber: number) {
+  return [...state.allMoviesInGame].reduce(
+    (acc: IMovie[], movie: IMovie, i) => {
+      let updatedMovie;
+      if (i === state.currentMovieIndex) {
+        updatedMovie = {
+          ...movie,
+          currentScore: movie.currentScore - movie.tips[tipNumber].tipScore, 
+          tips: [...movie.tips].reduce(
+            (accTips: Tip[], tip: Tip, i: number) => {
+              let updatedTip = null;
+              if (i === tipNumber) {
+                updatedTip = { ...tip, isUsed: true };
+              }
+              return [...accTips, updatedTip || tip];
+            },
+            []
+          ),
+        };
+      }
+      return [...acc, updatedMovie || movie];
+    },
+    []
+  );
+}
 
 function getCurrentMovie(state: IGameState) {
   return state.allMoviesInGame[state.currentMovieIndex];

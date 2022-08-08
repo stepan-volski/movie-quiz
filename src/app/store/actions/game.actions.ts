@@ -61,3 +61,5 @@ export const useTip = createAction(
   '[Game] Use Tip',
   props<{ number: number }>()
 );
+
+export const gameReset = createAction('[Game] Reset Game');
