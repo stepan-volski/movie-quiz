@@ -1,18 +1,26 @@
-<div *ngIf="categories" class="category__container">
-  <mat-card
-    (click)="onSelectCategory(category.id)"
-    *ngFor="let category of categories"
-    class="example-card"
-    data-category-id="category.id"
-  >
-    <mat-card-header class="centered-content">
-      <mat-card-title>{{ category.name }}</mat-card-title>
-    </mat-card-header>
-    <img
-      mat-card-image
-      src="https://is2-ssl.mzstatic.com/image/thumb/Purple3/v4/0e/b1/f9/0eb1f920-7f81-bf8c-377d-4e0bf803eb78/source/512x512bb.jpg"
-      alt="Photo"
-    />
-    <mat-card-actions class="centered-content"> </mat-card-actions>
-  </mat-card>
+<div class="viewport">
+  <div class="scene3D-container">
+    <div *ngIf="categories" class="category__container scene3D">
+      <h3 class="movie-quiz-title" #title>Movie Quiz</h3>
+      <mat-card
+        (click)="onSelectCategory(i)"
+        *ngFor="let category of categories; let i = index"
+        id="i"
+        class="example-card"
+        [ngStyle]="{
+          transform:
+            'translate3d(' +
+            400 * i +
+            'px, ' +
+            -200 * i +
+            'px,' +
+            -200 * i +
+            'px)',
+          opacity: 100 - 50 * i + '%'
+        }"
+      >
+        <label class="card-title">{{ category.name }}</label>
+      </mat-card>
+    </div>
+  </div>
 </div>

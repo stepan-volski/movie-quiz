@@ -13,9 +13,13 @@ import {
 } from 'rxjs';
 import { EMPTY_OBSERVER } from 'rxjs/internal/Subscriber';
 import { FilmShortResponse } from 'src/app/models/filmShortResponse.model';
-import { IMovie, MovieLoadingStatus, QuestionStatus } from 'src/app/models/movie.model';
+import {
+  IMovie,
+  MovieLoadingStatus,
+  QuestionStatus,
+} from 'src/app/models/movie.model';
 import { RequestsService } from 'src/app/requests.service';
-import { TIMER } from 'src/app/shared/constants';
+import { CARDS_SWITCH_TIMER, GAME_TIMER } from 'src/app/shared/constants';
 import {
   gameFinished,
   gameInit,
@@ -28,7 +32,7 @@ import {
   loadShortMoviesSuccess as loadShortMoviesSuccess,
 } from '../actions/game.actions';
 import { getGameData, getMoviesInGame } from '../selectors/game.selector';
-import { IAppState,  } from '../state/app.state';
+import { IAppState } from '../state/app.state';
 
 @Injectable()
 export class GameEffects {
@@ -89,7 +93,7 @@ export class GameEffects {
       this._actions$.pipe(
         ofType(gameStarted),
         tap(() => {
-          setTimeout(() => this._store.dispatch(gameFinished()), TIMER);
+          setTimeout(() => this._store.dispatch(gameFinished()), GAME_TIMER);
         })
       ),
     { dispatch: false }
@@ -119,7 +123,12 @@ export class GameEffects {
     () =>
       this._actions$.pipe(
         ofType(submitAnswer),
-        tap(() => setTimeout(() => this._store.dispatch(skipQuestion()), 2000))
+        tap(() =>
+          setTimeout(
+            () => this._store.dispatch(skipQuestion()),
+            CARDS_SWITCH_TIMER
+          )
+        )
       ),
     { dispatch: false }
   );

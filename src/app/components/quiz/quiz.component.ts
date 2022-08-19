@@ -1,10 +1,20 @@
-import { ChangeDetectionStrategy, Component, Input, OnDestroy, OnInit } from '@angular/core';
+import {
+  ChangeDetectionStrategy,
+  Component,
+  Input,
+  OnDestroy,
+  OnInit,
+} from '@angular/core';
 import { Router } from '@angular/router';
 import { Store } from '@ngrx/store';
 import { Subscription } from 'rxjs';
 import { GameStatus } from 'src/app/models/game-status';
-import { IMovie, MovieLoadingStatus, QuestionStatus } from 'src/app/models/movie.model';
-import { TIMER } from 'src/app/shared/constants';
+import {
+  IMovie,
+  MovieLoadingStatus,
+  QuestionStatus,
+} from 'src/app/models/movie.model';
+import { GAME_TIMER } from 'src/app/shared/constants';
 import {
   skipQuestion,
   startLoadingCurrentMovie,
@@ -30,7 +40,7 @@ export class QuizComponent implements OnInit, OnDestroy {
   currentMovie?: IMovie;
   status: number = GameStatus.NotStarted;
   questionsLeftStr: string = '';
-  remainingTime = TIMER;
+  remainingTime = GAME_TIMER;
   timerInterval?: ReturnType<typeof setInterval>;
   isMovieLoaded: boolean = false;
 
@@ -38,7 +48,7 @@ export class QuizComponent implements OnInit, OnDestroy {
 
   ngOnInit(): void {
     this.subscription = this.game$.subscribe((gameData) => {
-      console.log(gameData.status)
+      console.log(gameData.status);
       this.status = gameData.status;
       this.score = gameData.score;
       this.currentMovie = gameData.allMoviesInGame[gameData.currentMovieIndex];
